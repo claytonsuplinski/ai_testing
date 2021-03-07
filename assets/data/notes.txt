@@ -1,0 +1,114 @@
+-------------------------------------------------
+| Things I want to accomplish with this project |
+-------------------------------------------------
+
+-Have the AI program be able to do tasks / solve problems on its own.
+	-Use background knowledge to decide how to go about solving a problem / determining if the problem is impossible.
+		-If a problem is possible to solve, the program should be able to construct the algorithm on its own.
+		-If a problem is impossible, the program should say why it is not possible
+			-Ex: the computer doesn't know what a term means, the computer is physically unable to do such a task, etc...
+	-It should be able to take English text (specifying a question / task) as input and generate code that will satisfy that problem
+		-Ex: if I ask it to "find the largest prime number less than 10"
+			-It should be able to construct an algorithm and derive the answer, without me having previously hard-coded the answer for it.
+				-It should know that a prime number is a number that is not divisible by any other numbers besides 1 and itself.
+		-I might have to use a particular set syntax that uses elements of the English language in a particular order / structure.
+			-Deciphering everything the English language can do might be a really big challenge.
+			-Having all sentences structured in a consistent way might help make things a lot easier.
+			-Using a combination of English words and coding conventions (booleans, arithmetic, conditional statements) might be the way to go.
+			
+-------------------
+| Ideas for tasks |
+-------------------
+
+-Have a conversation:
+	-Extract meaning from input text
+	-Store a "memory" of things learned from the conversation / input text
+	-Be able to answer questions (both fact and opinion based questions)
+	
+-Write code
+	-I would like to be able to describe a project and have an AI program write all (or at least most) of the project.
+
+-Help me with simple tasks:
+	-Making decisions (what to make for dinner, gift ideas for other people, etc...)
+	
+-Dynamically figure out (on its own - based on things it already knows) how to solve new tasks (and return both the answer and code/steps it took):
+	Ex: find the largest prime number less than 10
+		Prime number - a whole number that is only divisible by 1 and itself
+		Divisible - if the given numerator and denominator produce a whole number, then it is divisible (
+		Less than - primitive action ( < operator )
+		Number - primitive object ( any value that returns false for isNaN() )
+	
+------------------------------------------------
+| How memory should be stored for the computer |
+------------------------------------------------
+
+-I'm thinking there should be several types of memory:
+	-Word / phrase associations learned from talking with the user or possibly other experiences.
+		-These associations should include both other words and sense-based associations (like taste, smell, appearance, etc...)
+		-Keep track of how often words are associated with each other.
+			-The more often two words are used together, the more closely related those words are.
+	-Recent things discussed with the user / experienced.
+		-This would be kinda like a short-term memory.
+		-This would be useful for keeping track of what is currently / has been recently discussed.
+			-This is important for tracking subjects of sentences when pronouns are involved.
+	-Facts (static data-based memory)
+		-Things like the dictionary and other JSON files that contain lists of facts.
+			-Some things I include are the following:
+				-Lists of countries/states/cities, sports teams, planets, food/recipes, periodic table info, anatomy
+		-These groups of memory could have:
+			-Stats about the individual elements (mass, area, charge, Scoville score, etc...)
+			-Some bias values (how much I like the given sports team, food, etc...)
+		-Info under this category will be viewed as facts to the computer, from which other ideas / responses will be formed.
+	-Conversion from English words / terms to Javascript / Python code
+		-This might be in its own memory file; but I could see this possibly getting integrated with the memory groups from above.
+	-Keep track of how many times the computer has talked to the given individual:
+		-This can be used to determine how much the computer should trust the individual and how much their statements should affect the computer's memory.
+		-When first loading the page, the first question should be from the computer and it should be "Hello, who am I talking to?"
+		-I might want the computer to keep track of how "trustworthy" the given user is.
+			-The more they lie, the less they should be trusted.
+				-I'll have to figure out how the computer will determine lies though.
+		
+-------------------------------------
+| Schemas for the computer's memory |
+-------------------------------------
+
+-Word association:
+	[
+		{
+			"n" : "red",     // name of the word
+			"c" : [          // classifications (kinda like parents of the given object if it were in some sort of hierarchy/taxonomy of all nouns)
+				"color", ...         // Ex: if this were for the word "apple", then "c" would contain the following: fruit, food
+			],
+			"a" : [          // associations
+				{
+					"n" : "apple",
+					"c" : 2,            // Count -- number of times associated with the current word
+					"s" : {},
+					"b" : {},
+				},
+			],
+			"s" : {          // sensory associations  -- if it's an abstract word, then this field will not exist
+				"v" : {},    //     v -> visual, a -> auditory, t -> touch, e -> taste (eat), s -> smell
+			},
+			"b" : {          // biases associated with the word (ex: good/bad
+			}
+		}, ...
+	]
+	
+-----------------------------------------------------------
+| Sensory / Bias Representations in the computer's memory |
+-----------------------------------------------------------
+
+-Taste : sweet, salty, sour, bitter, umami, spicy (Scoville units)
+	-Either a label from one of the above categories, or some sort of numerical value of the above categories
+-Smell : fragrant, woody, citrus, fruity (non-citrus), chemical, minty, sweet, popcorn, pungent, decayed
+	-Either a label from one of the above categories, or some sort of numerical value of the above categories
+-Sound : audio data / mp3 files
+	-There would need to be some sort of way to compare audio data in memory with input audio data.
+		-Things like change in pitch / speed would need to be taken into account when comparing audio.
+	-Might need to use ANNs for comparing an audio memory with other audio data.
+-Sight : image data (jpgs / pngs)
+	-Probably also need a neural network of some sort
+		-For both Sight and Sound, it'll probably need a deep neural network with many hidden layers
+-Touch : 
+-Emotion : fear, anger, sadness, joy, disgust, surprise, trust, anticipation
