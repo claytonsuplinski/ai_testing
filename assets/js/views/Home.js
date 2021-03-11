@@ -1,13 +1,14 @@
 QUE.views.home = { messages : [] };
 
 QUE.views.home.send_message = function( message ){
-	AI.parts_of_speech.extract( message.content );
+	AI.sentence.split_sentences( message.content );
 	if( !message.timestamp ) message.timestamp = QUE.functions.datetime_to_string( new Date() );
 	this.messages.unshift( message );
 	this.draw();
 };
 
 QUE.views.home.send_user_message = function(){
+	console.log( '-----------------------' );
 	var message = $( "#user-input-field input" ).val();
 	
 	if( message ){

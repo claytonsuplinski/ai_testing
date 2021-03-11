@@ -27,9 +27,12 @@
 	
 -Write code
 	-I would like to be able to describe a project and have an AI program write all (or at least most) of the project.
+		-Web pages (HTML/CSS/Javascript -- possibly Python too, for server-side code), scripts (Python)
 
 -Help me with simple tasks:
 	-Making decisions (what to make for dinner, gift ideas for other people, etc...)
+	
+-Take text as input and derive meaning from it
 	
 -Dynamically figure out (on its own - based on things it already knows) how to solve new tasks (and return both the answer and code/steps it took):
 	Ex: find the largest prime number less than 10
@@ -37,6 +40,10 @@
 		Divisible - if the given numerator and denominator produce a whole number, then it is divisible (
 		Less than - primitive action ( < operator )
 		Number - primitive object ( any value that returns false for isNaN() )
+		
+-Construct 3D / OpenGL / WebGL environments, simply by describing them
+	-I may want to tie some of the words in the computer's memory with the 3D models I've been making.
+		-It might be useful for providing some sort of prototype of an object for the computer.
 	
 ------------------------------------------------
 | How memory should be stored for the computer |
@@ -67,6 +74,12 @@
 		-I might want the computer to keep track of how "trustworthy" the given user is.
 			-The more they lie, the less they should be trusted.
 				-I'll have to figure out how the computer will determine lies though.
+				
+-Some words will end up being "primitives" (can't be defined by other words)
+	-A lot of these words would be related to senses (ex: sweet, sour, fear, joy, etc...)
+	-Some words like "good" and "bad" might also be primitives.
+	-When the computer is doing a task, it might try to either maximize or minimize the primitive quantities.
+		-For example, if the command is "to find the best thing", it may try to find the most matches with "joy" and minimize matches with negative feelings.
 		
 -------------------------------------
 | Schemas for the computer's memory |
@@ -75,23 +88,39 @@
 -Word association:
 	[
 		{
-			"n" : "red",     // name of the word
-			"c" : [          // classifications (kinda like parents of the given object if it were in some sort of hierarchy/taxonomy of all nouns)
-				"color", ...         // Ex: if this were for the word "apple", then "c" would contain the following: fruit, food
-			],
-			"a" : [          // associations
+			"w" : "red",     // the word
+			"d" : [          // definitions for the word
 				{
-					"n" : "apple",
-					"c" : 2,            // Count -- number of times associated with the current word
-					"s" : {},
-					"b" : {},
-				},
-			],
-			"s" : {          // sensory associations  -- if it's an abstract word, then this field will not exist
-				"v" : {},    //     v -> visual, a -> auditory, t -> touch, e -> taste (eat), s -> smell
-			},
-			"b" : {          // biases associated with the word (ex: good/bad
-			}
+					"p" : "n"        // part of speech
+					"t" : [ "" ],    // type(s) of noun/verb/adjective/adverb/etc...
+					"c" : [          // classifications (kinda like parents of the given object if it were in some sort of hierarchy/taxonomy of all words)
+						"color", ...         // Ex: if this were for the word "apple", then "c" would contain the following: fruit, food
+					],
+					"d" : [ "", ... ],       // Descriptions
+					"a" : [          // associations
+						{
+							"n" : "apple",
+							"c" : 2,            // Count -- number of times associated with the current word
+							"s" : {},
+							"b" : {},
+						},
+					],
+					"s" : {          // sensory associations  -- if it's an abstract word, then this field will not exist
+						"v" : {},    //     v -> visual, a -> auditory, t -> touch, e -> taste (eat), s -> smell
+					},
+					"b" : {          // biases associated with the word (ex: good/bad
+					},
+					"x" : {               // executable code -- Javascript or Python (figure out the best way to design this with as little redundant code as possible)
+						"c" : [               // code (if necessary)
+							"if( {pixel_color} == #ff0000 )"
+						],
+						"v" : {           // value (if necessary)
+							"v" : "#f00",         // value (amount)
+							"t" : "hex"           // type (if necessary -- regular numbers and strings should be decipherable by default)
+						}
+					}
+				}, ...
+			]
 		}, ...
 	]
 	
@@ -110,5 +139,102 @@
 -Sight : image data (jpgs / pngs)
 	-Probably also need a neural network of some sort
 		-For both Sight and Sound, it'll probably need a deep neural network with many hidden layers
--Touch : 
+-Touch : hardness scale, roughness grade numbers,
 -Emotion : fear, anger, sadness, joy, disgust, surprise, trust, anticipation
+
+-------------------
+| Parts of Speech |
+-------------------
+
+( List of simple parts of speech : https://www.grammar.cl/rules/parts-of-speech-in-english.gif )
+( List of detailed parts of speech (slide 2) : http://www.stat.columbia.edu/~madigan/DM08/hmm.pdf )
+
+-Noun: https://www.thesaurus.com/e/grammar/what-are-the-types-of-nouns/
+	-Common          (ex: house, cat, foot)                    // pronouns fall under this category
+	-Proper          (ex: Japan, Sora, The Great Depression)
+	
+	-Singular        (ex: house, lion, shelf)
+	-Plural          (ex: homes, lions, shelves)
+	-Collective      (ex: crowd, flock, a hundred dollars)     // a group of things
+	
+	-Concrete        (ex: table, apple, rabbit)                // something that can be perceived through one of the five senses
+	-Abstract        (ex: love, creativity, democracy)         // something that is intangible, can't be perceived with the five senses
+	
+	-Countable       (ex: table, apple, rabbit)
+	-Uncountable     (ex: salt, seafood, luggage)
+
+-Adjective: https://grammar.yourdictionary.com/grammar/adjectives/types-of-adjectives.html
+	-Descriptive     (ex: silly, nice, annoying)
+	-Possessive      (ex: his, her, their, your)
+	-Proper          (ex: Japanese, Shakespearean, Canadian)
+	-Quantitative    (ex: two, six, whole)
+	-Sequence        (ex: second, fifth, ninth, seventh, later, next)
+	-Coordinate      (ex: pink and yellow; bright, sunny, and warm; sad, sorry, gruesome)      // groups of adjectives that refer to the same noun
+	-Demonstrative   (ex: this, that, these, those)                                            // specifying which noun
+	-Distributive    (ex: any, each, every, either)                                            // point out specific entites / number of instances of the noun
+	-Indefinite      (ex: any, few, many, several)                                             // referring to non-specific items
+	-Interrogative   (ex: what, which, whose)                                                  // for posing a question -- usually to start a sentence/question
+
+-Verb:
+
+-Adverb:
+
+-Preposition:
+
+-Conjunction:
+
+-Interjection:
+
+-Article:
+
+----------------------
+| Types of Sentences |
+----------------------
+https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
+
+-Declarative (statement):
+	-Conveying information; stating a fact
+	-Ex: The boy walked home.
+	-For communicating with the computer:
+		-Any sentence that doesn't begin with "Computer, " and doesn't end with ? or !.
+		-These sentences will be required to always have the subject followed by the predicate.
+			-From the example listed above: "The boy" is the subject and "walked home." is the predicate.
+
+-Interrogative (question):
+	-A question
+	-Ex: Why does the sun shine?
+	-For communicating with the computer:
+		-Any sentence that ends with a question mark.
+		-TODO : I'm not sure about the structure of these questions. The subject and predicate seem to get mixed in with each other.
+
+-Imperative (command):
+	-A command / demand
+	-Ex: Turn left at the bridge.
+	-For communicating with the computer:
+		-Any sentence that begins with "Computer, " and doesn't end with ? or !.
+		-For these sentences, the subject will always be "Computer, " and everything else is the predicate (telling the computer what to do).
+
+-Exclamatory (exclamation): (this might not be necessary for my purposes)
+	-Like a Declarative Sentence, but with strong emotion behind it.
+	-Ex: He just won a gold medal!
+	-For communicating with the computer:
+		-Any sentence that ends with an exclamation point.
+		-These sentences will be required to always have the subject followed by the predicate.
+			-From the example listed above: "He" is the subject and "just won a gold medal!" is the predicate.
+		
+------------------------------------------------------------
+| Restrictions to input English text used for this program |
+------------------------------------------------------------
+
+-All sentences must fall under the four categories listed above.
+-Every sentence must have exactly one subject and one predicate.
+
+------------------------------------------------
+| Built-in Variables (for use by the computer) |
+------------------------------------------------
+
+user        : name_of_user
+
+pixel       : [r,g,b,a] (for imagery / visual purposes)
+
+temperature : Number    (for temperature-based purposes -- in degrees F)
