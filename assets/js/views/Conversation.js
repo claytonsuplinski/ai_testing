@@ -1,21 +1,24 @@
-QUE.views.home = { messages : [] };
+QUE.views.conversation = { messages : [] };
 
-QUE.views.home.send_message = function( message ){
-	AI.sentence.split_sentences( message.content );
+QUE.views.conversation.send_message = function( message ){
 	if( !message.timestamp ) message.timestamp = QUE.functions.datetime_to_string( new Date() );
 	this.messages.unshift( message );
 	this.draw();
 };
 
-QUE.views.home.send_user_message = function(){
+QUE.views.conversation.send_user_message = function(){
 	console.log( '-----------------------' );
 	var message = $( "#user-input-field input" ).val();
 	
 	if( message ){
 		this.send_message({ speaker : 'User', content : message });
 		
+		var sentences = AI.sentence.split_sentences( message );
+		AI.absorb.associations( sentences );
+		// Response text: The word "input_word" has been stored in my associative memory.<br><br>input_word (pos) - definition
+		
 		setTimeout( function(){
-			QUE.views.home.send_computer_message();
+			QUE.views.conversation.send_computer_message();
 		}, 500 );
 	}
 	
@@ -35,29 +38,30 @@ QUE.views.home.send_user_message = function(){
 	//     -List of different parts of speech (slide 2) : http://www.stat.columbia.edu/~madigan/DM08/hmm.pdf
 };
 
-QUE.views.home.send_computer_message = function(){
+QUE.views.conversation.send_computer_message = function(){
 	this.send_message({ speaker : 'Computer', content : "Hello, I'm the computer!" });
 };
 
-QUE.views.home.save_computer_memory = function(){
+QUE.views.conversation.save_computer_memory = function(){
 	[ 'associations' ].forEach(function( x ){
 		MEM.learned[ x ].save();
 	});
 };
 
-QUE.views.home.check_for_enter = function(){
-	if( event.keyCode == 13 ) QUE.views.home.send_user_message();
+QUE.views.conversation.check_for_enter = function(){
+	// TODO : Re-write this function to be more generic and under QUE.functions
+	if( event.keyCode == 13 ) QUE.views.conversation.send_user_message();
 };
 
-QUE.views.home.draw = function(){
+QUE.views.conversation.draw = function(){
 	$( "#content" ).html(
 		QUE.view.get_header() +
 		'<div class="content">' +
-			'<div id="user-input-field">' + 
-				'<input placeholder="Say something to the computer here..." onkeydown="QUE.views.home.check_for_enter( this );"></input>' + 
-				'<div id="send-message-button" class="button" onclick="QUE.views.home.send_user_message();">Send</div>' +
+			'<div class="ui-section" id="user-input-field">' + 
+				'<input placeholder="Say something to the computer here..." onkeydown="QUE.views.conversation.check_for_enter( this );"></input>' + 
+				'<div id="send-message-button" class="button" onclick="QUE.views.conversation.send_user_message();">Send</div>' +
 			'</div>' +
-			'<div id="conversation">' +
+			'<div class="ui-content" id="conversation">' +
 				this.messages.map(function( message ){
 					return '<div class="message ' + ( message.speaker == 'Computer' ? 'computer' : '' ) + '">' +
 						[
@@ -68,8 +72,8 @@ QUE.views.home.draw = function(){
 					'</div>';
 				}).join('<br>') +
 			'</div>' +
-			'<div class="ui-field">' +
-				'<div id="save-button" class="button" onclick="QUE.views.home.save_computer_memory();">Save</div>' +
+			'<div class="ui-section">' +
+				'<div id="save-button" class="button" onclick="QUE.views.conversation.save_computer_memory();">Save</div>' +
 			'</div>' +
 		'</div>'
 	);

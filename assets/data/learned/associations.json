@@ -14,5 +14,16 @@
 				"c" : [ "tech company" ]
 			}
 		]
+	},
+	{
+		"w" : "future",
+		"d" : [
+			{
+				"p" : "n",
+				"x" : {
+					"c" : "{given_datetime} > {curr_datetime}"
+				}
+			}
+		]
 	}
 ]

@@ -111,8 +111,8 @@
 					"b" : {          // biases associated with the word (ex: good/bad
 					},
 					"x" : {               // executable code -- Javascript or Python (figure out the best way to design this with as little redundant code as possible)
-						"c" : [               // code (if necessary)
-							"if( {pixel_color} == #ff0000 )"
+						"c" : [               // comparison
+							"{pixel_color} == #ff0000"
 						],
 						"v" : {           // value (if necessary)
 							"v" : "#f00",         // value (amount)

@@ -1,10 +1,12 @@
 QUE.hashlinks = new Hashlinks({
-	question : {},
+	view : {},
 });
 
 QUE.hashlinks.on_start = function(){
+	var self = this;
+
 	var callback = function(){
-		QUE.views.home.draw();
+		QUE.views[ self.params.view.value || QUE.default_view ].draw();
 	};
 	
 	var loading_sequence = [

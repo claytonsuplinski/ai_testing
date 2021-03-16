@@ -1,0 +1,40 @@
+#memories{
+	margin-bottom:0;
+}
+
+#memories .entry{
+	background:rgba(0,0,0,0.5);
+	border:1px solid rgba(255,255,255,0.25);
+	margin:5px;
+}
+
+#memories .entry .word{
+	background:#293e27;
+	padding:2px 5px;
+	font-size:12px;
+}
+
+#memories .entry .definition-divider{
+	width:calc( 100% - 100px );
+	margin:1px auto;
+	border-color:rgba(255,255,255,0.2);
+}
+
+#memories .entry .definition{
+	color:#fff;
+	font-size:10px;
+	background:#444019;
+	width:calc( 100% - 50px );
+	margin:2px 5px 2px 10px;
+	border-collapse:collapse;
+}
+
+#memories .entry .definition td{
+	padding:1px 2px;
+	border:1px solid #111;
+}
+
+#memories .entry .definition .name{
+	width:100px;
+	background:rgba(0,0,0,0.35);
+}

@@ -28,6 +28,34 @@ MEM.learned.associations.load = function( callback ){
 	if( callback ) callback();
 };
 
+MEM.learned.associations.add = function( curr_values, update_values ){
+	var update_values = update_values || {};
+
+	var word = this.entries.find(function( entry ){ return entry.w == curr_values.w; });
+	if( !word ){
+		word = { w : curr_values.w, d : [] };
+		this.entries.splice( QUE.functions.get_sorted_index( this.entries.map( x => x.w ), curr_values.w ), 0, word );
+	}
+	
+	if( curr_values.d ){
+		var def_keys = Object.keys( curr_values.d );
+		var definition = word.d.find(function( d ){
+			return def_keys.every(function( k ){ return d[ k ] == curr_values.d[ k ]; }); // I may need some sort of "recursive equals" function here (for nested values).
+		});
+		console.log( definition );
+		if( definition && update_values.d ){
+			Object.assign( definition, update_values.d );
+		}
+		else if( !definition ){
+			definition = {};
+			console.log( curr_values.d );
+			Object.assign( definition, curr_values.d );
+			word.d.push( definition );
+		}
+	}
+	console.log( 'Add : ', curr_values, update_values, word );
+};
+
 MEM.learned.associations.save = function(){
 	QUE.functions.download_json( this.entries, this.name + '.json' );
 };

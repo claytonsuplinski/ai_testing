@@ -16,20 +16,6 @@ a, a:hover, a:active, a:focus{
 	text-decoration:none;
 }
 
-.header{
-	width:100%;
-	background:#000;
-	color:#fff;
-	font-size:22px;
-	font-weight:400;
-	text-align:center;
-	padding:5px;
-	margin:5px 0 10px;
-	box-sizing:border-box;
-	border-top   :1px solid rgba( 80, 252,  27, 0.5);
-	border-bottom:1px solid rgba( 87, 164, 212, 0.5);
-}
-
 .button{
 	width:60px;
 	background:#264971;
@@ -45,4 +31,56 @@ a, a:hover, a:active, a:focus{
 
 #content{
 	padding-bottom:30px;
+}
+
+select{
+	-webkit-appearance: none;
+      `-moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+.ui-section{
+	width:700px;
+	max-width:100%;
+	margin:10px auto;
+}
+
+.ui-section select,
+.ui-section input{
+	background:#303f51;
+	color:#fff;
+	border:1px solid rgba(255,255,255,0.5);
+	padding:5px 8px;
+	font-size:12px;
+}
+
+.ui-section select{
+	width:calc( 100% - 125px );
+}
+
+.ui-section input{
+	width:calc( 100% - 85px );
+}
+
+.ui-section .select-label{
+	display:inline-block;
+	width:125px;
+	color:#fff;
+	font-size:12px;
+	text-align:right;
+	padding-right:10px;
+	box-sizing:border-box;
+}
+
+.ui-content{
+	width :700px;
+	height:calc(100vh - 125px);
+	min-height:100px;
+	max-width:100%;
+	margin:10px auto;
+	background:rgba(0,0,0,0.5);
+	border:1px solid rgba(255,255,255,0.25);
+	color:#fff;
+	overflow:auto;
 }

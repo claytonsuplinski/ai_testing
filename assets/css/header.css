@@ -1,0 +1,32 @@
+.header{
+	width:100%;
+	background:#000;
+	color:#fff;
+	font-size:22px;
+	font-weight:400;
+	text-align:center;
+	padding:5px;
+	margin:5px 0 10px;
+	box-sizing:border-box;
+	border-top   :1px solid rgba( 80, 252,  27, 0.5);
+	border-bottom:1px solid rgba( 87, 164, 212, 0.5);
+}
+
+.header select{
+	border:1px solid rgba(255,255,255,0.5);
+	background:rgba(162, 42, 42, 0.5);
+	color:#fff;
+	font-size:14px;
+	padding:2px 5px;
+	margin-left:10px;
+	margin-top :2px;
+	vertical-align:top;
+	width:130px;
+	text-align:center;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.header select option{
+	background:#5c2d2d;
+}

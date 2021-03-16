@@ -52,14 +52,12 @@ AI.sentence.split_sentences = function( text ){
 	sentences = sentences.map(function( sentence ){ return this.split_words( sentence ); }, this);
 	
 	// Separate the punctuation from the end of the last word of each sentence.
-	console.log( '-------------' );
 	sentences.forEach(function( sentence ){
 		var last_word = sentence[ sentence.length - 1 ];
 		if( last_word.endsWith( '.' ) ){
 			sentence[ sentence.length - 1 ] = last_word.substring( 0, last_word.length - 1 );
 			sentence.push( '.' );
 		}
-		console.log( sentence, this.get_type( sentence ) );
 	}, this);
 	
 	return sentences;

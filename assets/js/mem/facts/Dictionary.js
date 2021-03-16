@@ -21,6 +21,11 @@ MEM.facts.dictionary.search = function( word ){
 MEM.facts.dictionary.load = function( callback ){
 	var self = this;
 	
+	if( this.entries ){
+		if( callback ) callback();
+		return;
+	}
+	
 	this.entries = [];
 	
 	$.ajax({

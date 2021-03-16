@@ -6,6 +6,26 @@ QUE.functions.pad = function( num, decimal_place, delimiter ){
 	return num.length >= decimal_place ? num : new Array( decimal_place - num.length + 1 ).join( delimiter ) + num;
 };
 
+QUE.functions.remove_punctuation = function( str ){
+	return str.replace(/[.,\/#!$%?\^&\*;:{}=\-\[\]_`~()\']/g, "").replace(/ /g, '');
+};
+
+QUE.functions.to_title_case = function(str){
+	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+QUE.functions.get_sorted_index = function( arr, val ){
+	var low  = 0;
+	var high = arr.length;
+
+	while( low < high ){
+		var mid = ( low + high ) >>> 1;
+		if( arr[ mid ] < val ) low  = mid + 1;
+		else                   high = mid;
+	}
+	return low;
+};
+
 QUE.functions.get_url_content = function( p ){
 	$.ajax({
 		url         : p.url,
