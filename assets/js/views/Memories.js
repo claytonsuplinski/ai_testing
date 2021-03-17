@@ -1,7 +1,9 @@
 QUE.views.memories = {};
 
-QUE.views.memories.get_definition_line = function( key, val ){
+QUE.views.memories.get_definition_line = function( obj, k, key, val ){
+	if( !obj[ k ] ) return '';
 	return '<tr>' +
+		'<td class="key ">' + k   + '</td>' +
 		'<td class="name">' + key + '</td>' +
 		'<td class="info">' + val + '</td>' +
 	'</tr>';
@@ -34,10 +36,17 @@ QUE.views.memories.draw = function(){
 						( !entry.d ? '' :
 							entry.d.map(function( def ){
 								return '<table class="definition">' +
-									( !def.p ? '' : this.get_definition_line( 'POS', AI.parts_of_speech.convert_pos_string( def.p, 'abbr', 'full' ) ) ) +
-									( !def.t ? '' : this.get_definition_line( 'Word Types', def.t.join(', ') ) ) +
-									( !def.c ? '' : this.get_definition_line( 'Categories', def.c.join(', ') ) ) +
-									( !def.d ? '' : this.get_definition_line( 'Descriptions', def.d.join('; ') ) ) +
+									( !def.p ? '' : this.get_definition_line( def, 'p', 'POS', AI.parts_of_speech.convert_pos_string( def.p, 'abbr', 'full' ) ) ) +
+									( !def.t ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
+									( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
+									( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
+									( !def.x ? '' :
+										this.get_definition_line( 'x', 'Algorithmic Defs', 
+											'<table class="sub-definition code">' +
+												( !def.x.c ? '' : this.get_definition_line( 'c', 'Conditional', def.x.c ) ) +
+											'</table>'
+										)
+									) +
 								'</table>';
 							}, this).join('<hr class="definition-divider">')
 						) +
