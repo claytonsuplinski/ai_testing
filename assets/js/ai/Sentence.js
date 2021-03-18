@@ -33,7 +33,6 @@ AI.sentence.split_sentences = function( text ){
 	// Split the text into chunks, based on the punctuation and white-space positioning.
 
 	var text_chunks = text.replace( /([.?!])\s*(?=[A-Z])/g, "$1|" ).split("|");
-	console.log( text_chunks );
 	
 	// Condense chunks of text that were separated in the previous step, but actually belong in the same sentence.
 	

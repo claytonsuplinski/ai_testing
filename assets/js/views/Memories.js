@@ -36,7 +36,7 @@ QUE.views.memories.draw = function(){
 						( !entry.d ? '' :
 							entry.d.map(function( def ){
 								return '<table class="definition">' +
-									( !def.p ? '' : this.get_definition_line( def, 'p', 'POS', AI.parts_of_speech.convert_pos_string( def.p, 'abbr', 'full' ) ) ) +
+									( !def.p ? '' : this.get_definition_line( def, 'p', 'POS', AI.parts_of_speech.convert_pos_string( def.p, 'key', 'full' ) ) ) +
 									( !def.t ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
 									( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
 									( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +

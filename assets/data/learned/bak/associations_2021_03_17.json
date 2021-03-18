@@ -1,0 +1,29 @@
+[
+	{
+		"w" : "apple",
+		"d" : [
+			{
+				"p" : "n",
+				"t" : [ "common", "singular", "concrete", "countable" ],
+				"c" : [ "fruit" ],
+				"d" : [ "red, yellow, or green", "one stem" ]
+			},
+			{
+				"p" : "n",
+				"t" : [ "proper", "singular", "abstract", "countable" ],
+				"c" : [ "tech company" ]
+			}
+		]
+	},
+	{
+		"w" : "future",
+		"d" : [
+			{
+				"p" : "n",
+				"x" : {
+					"c" : "{given_datetime} > {curr_datetime}"
+				}
+			}
+		]
+	}
+]

@@ -42,13 +42,11 @@ MEM.learned.associations.add = function( curr_values, update_values ){
 		var definition = word.d.find(function( d ){
 			return def_keys.every(function( k ){ return d[ k ] == curr_values.d[ k ]; }); // I may need some sort of "recursive equals" function here (for nested values).
 		});
-		console.log( definition );
 		if( definition && update_values.d ){
 			Object.assign( definition, update_values.d );
 		}
 		else if( !definition ){
 			definition = {};
-			console.log( curr_values.d );
 			Object.assign( definition, curr_values.d );
 			word.d.push( definition );
 		}

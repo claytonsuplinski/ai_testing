@@ -13,12 +13,15 @@ QUE.views.conversation.send_user_message = function(){
 	if( message ){
 		this.send_message({ speaker : 'User', content : message });
 		
-		var sentences = AI.sentence.split_sentences( message );
-		AI.absorb.associations( sentences );
+		var sentences   = AI.sentence.split_sentences( message );
+		var association = AI.absorb.associations( sentences );
+		var response    = AI.respond.conversation( association );
 		// Response text: The word "input_word" has been stored in my associative memory.<br><br>input_word (pos) - definition
 		
+		// TODO : If matching association already exists, the computer should ask if I am referring to the existing definition or a new definition.
+		
 		setTimeout( function(){
-			QUE.views.conversation.send_computer_message();
+			QUE.views.conversation.send_computer_message( response );
 		}, 500 );
 	}
 	
@@ -38,8 +41,8 @@ QUE.views.conversation.send_user_message = function(){
 	//     -List of different parts of speech (slide 2) : http://www.stat.columbia.edu/~madigan/DM08/hmm.pdf
 };
 
-QUE.views.conversation.send_computer_message = function(){
-	this.send_message({ speaker : 'Computer', content : "Hello, I'm the computer!" });
+QUE.views.conversation.send_computer_message = function( response ){
+	this.send_message({ speaker : 'Computer', content : response || "Hello, I'm the computer!" });
 };
 
 QUE.views.conversation.save_computer_memory = function(){
