@@ -221,6 +221,58 @@ https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
 		-Any sentence that ends with an exclamation point.
 		-These sentences will be required to always have the subject followed by the predicate.
 			-From the example listed above: "He" is the subject and "just won a gold medal!" is the predicate.
+			
+-------------------------
+
+-Active vs Passive voice
+	-Active : Subject - Verb - Object
+		-Ex: I walked the dog.  ( Subject : I, Verb : walked, Object : the dog )
+	-Passive : Object - Verb - Subject
+		-Ex: The dog was walked by me.
+			
+---------------------
+| Parsing Sentences |
+---------------------
+
+-Things to identify: ( http://www.butte.edu/departments/cas/tipsheets/grammar/sentence_structure.html )
+	-Subject
+		-Ex: The man builds a house.  --  "The man"
+	-Predicate
+		-Ex: The man builds a house.  --  "builds a house"
+	-Direct Object
+		-Usually a noun or pronoun
+		-Ex: The man builds a house.  --  "house"
+	-Indirect Object
+		-Ex: The man builds his family a house.  --  "his family"
+	-Subject Complement
+		-Ex: The man is a good builder.  --  "builder"
+	
+-Types of sentence structures: ( https://www.thoughtco.com/sentence-parts-and-sentence-structures-1689671 )
+	-Simple Sentence (one independent clause)
+		-Ex: Judy laughed.
+		-The subject will be the noun that begins the sentence.
+		-Follows the Subject - Verb - Object structure.
+	-Compound Sentence (at least two independent clauses)
+		-Ex: Judy laughed and Jimmy cried.
+	-Complex Sentence (one independent clause and at least one dependent clause)
+		-Ex: Jimmy cried when Judy laughed.
+	-Compound-Complex Sentence (at least two independent clauses and at least one dependent clause)
+		-Ex: Judy laughed and Jimmy cried when the clowns ran past their seats.
+		
+-Clauses:
+	-Independent:
+		-Must have a subject and verb.
+		-Can stand by itself as a complete sentence.
+	-Dependent:
+		-Cannot stand by itself as a complete sentence.
+
+-Things to keep in mind:
+	-Grouping of multiple words into one part of speech (ex: a first and last name combining to represent one noun)
+	-May need to utilize the other words in the sentence for determining context (which could help determine the part of speech).
+-If it helps, I can start out by using certain punctuation to classify parts of the sentences:
+	-Place subject of sentence in square brackets.
+	-Multi-word nouns will be contained between two percent signs.
+-For nouns, I'll need to determine if it is a "general" (any, a) or "specific" (the, Mount Rushmore) noun.
 		
 ------------------------------------------------------------
 | Restrictions to input English text used for this program |

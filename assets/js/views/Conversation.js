@@ -14,8 +14,9 @@ QUE.views.conversation.send_user_message = function(){
 		this.send_message({ speaker : 'User', content : message });
 		
 		var sentences   = AI.sentence.split_sentences( message );
+		console.log( 'Sentences : ', sentences );
 		var association = AI.absorb.associations( sentences );
-		var response    = AI.respond.conversation( association );
+		var response    = AI.respond.conversation( sentences, association );
 		// Response text: The word "input_word" has been stored in my associative memory.<br><br>input_word (pos) - definition
 		
 		// TODO : If matching association already exists, the computer should ask if I am referring to the existing definition or a new definition.

@@ -10,6 +10,10 @@ QUE.functions.remove_punctuation = function( str ){
 	return str.replace(/[.,\/#!$%?\^&\*;:{}=\-\[\]_`~()\']/g, "").replace(/ /g, '');
 };
 
+QUE.functions.has_letter = function( str ){
+	return ( /[A-Za-z]/i ).test( str );
+};
+
 QUE.functions.to_title_case = function(str){
 	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };

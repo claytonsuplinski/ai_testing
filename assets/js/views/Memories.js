@@ -31,6 +31,7 @@ QUE.views.memories.draw = function(){
 			// '</div>' +
 			'<div class="ui-content" id="memories">' +
 				curr_memory.map(function( entry ){
+					console.log( entry );
 					return '<div class="entry">' + 
 						'<div class="word">' + entry.w + '</div>' +
 						( !entry.d ? '' :
@@ -41,9 +42,10 @@ QUE.views.memories.draw = function(){
 									( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
 									( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
 									( !def.x ? '' :
-										this.get_definition_line( 'x', 'Algorithmic Defs', 
+										this.get_definition_line( def, 'x', 'Algorithmic Defs', 
 											'<table class="sub-definition code">' +
-												( !def.x.c ? '' : this.get_definition_line( 'c', 'Conditional', def.x.c ) ) +
+												( !def.x.c ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
+												( !def.x.q ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
 											'</table>'
 										)
 									) +

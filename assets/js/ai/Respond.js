@@ -1,7 +1,15 @@
 AI.respond = {};
 
-AI.respond.conversation = function( association ){
-	if( !association ) return "Sorry, I didn't understand that.";	
+AI.respond.conversation = function( sentences, association ){
+	if( !association ){
+		var sentence = sentences[ 0 ];
+		if( sentence.subject && sentence.action && sentence.object ){
+			return [ 'subject', 'action', 'object' ].map(function( x ){
+				return 'The ' + x + ' of the sentence is "' + sentence[ x ] + '".';
+			}).join('<br>');
+		}
+		return "Sorry, I didn't understand that.";
+	}
 	
 	return [
 		'Definition added for the word &quot;' + association.w + '&quot;.',
