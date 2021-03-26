@@ -98,7 +98,7 @@ AI.sentence.split_sentences = function( text ){
 		
 		// Classify the different parts of each sentence (like subject, action, object, etc...)
 		
-		if( sentence.words.length > 3 ){
+		if( sentence.words.length >= 3 ){
 			sentence.subject = sentence.words[ 0 ];
 			sentence.action  = sentence.words[ 1 ];
 			sentence.object  = sentence.words[ 2 ];

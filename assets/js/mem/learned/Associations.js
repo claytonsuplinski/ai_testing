@@ -6,8 +6,7 @@ MEM.learned.associations = { name : 'associations', type : 'learned' };
 MEM.learned.associations.load = function( callback ){
 	var self = this;
 
-	// this.entries = [];
-	this.entries = [ { test : 123 } ];
+	this.entries = [];
 	
 	$.ajax({
 		url      : './assets/data/learned/' + this.name + '.json',
@@ -26,6 +25,22 @@ MEM.learned.associations.load = function( callback ){
 		}
 	});
 	if( callback ) callback();
+};
+
+MEM.learned.associations.add_word = function( word ){
+	var entry = { w : word.w, d : [] };
+	if( word.d ) entry.d.push( word.d );
+	this.entries.push( entry );
+};
+
+MEM.learned.associations.add_definition = function( word ){
+	var entry = this.query({ word : word.w });
+	if( entry ) entry.d.push( word.d );
+};
+
+MEM.learned.associations.modify_definition = function( word, definition_idx ){
+	var entry = this.query({ word : word.w });
+	if( entry ) Object.assign( entry.d[ definition_idx ], word.d );
 };
 
 MEM.learned.associations.add = function( curr_values, update_values ){
@@ -58,5 +73,13 @@ MEM.learned.associations.save = function(){
 	QUE.functions.download_json( this.entries, this.name + '.json' );
 };
 
-MEM.learned.associations.query = function(){
+MEM.learned.associations.query = function( p ){
+	var result = false;
+	
+	if( p.word ){
+		var word = p.word.toLowerCase();
+		result = this.entries.find(function( entry ){ return entry.w == word; });
+	}
+	
+	return result;
 };

@@ -7,7 +7,7 @@ AI.parts_of_speech = {
 		{ key : 'n', abbr : 'n'     , full : 'noun'         },
 		{ key : 'p', abbr : 'prep'  , full : 'preposition'  },
 		{ key : 'o', abbr : 'pron'  , full : 'pronoun'      },
-		{ key : 'v', abbr : 'v'     , full : 'verb'         },
+		{ key : 'v', abbr : 'v'     , full : 'verb'        , types : [ 'dynamic', 'intransitive', 'linking', 'stative', 'transitive' ], forms : [ 'present', 'past', 'present participle', 'past participle' ] },
 	]
 };
 

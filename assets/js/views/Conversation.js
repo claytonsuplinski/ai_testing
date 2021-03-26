@@ -7,19 +7,17 @@ QUE.views.conversation.send_message = function( message ){
 };
 
 QUE.views.conversation.send_user_message = function(){
-	console.log( '-----------------------' );
 	var message = $( "#user-input-field input" ).val();
 	
 	if( message ){
 		this.send_message({ speaker : 'User', content : message });
 		
-		var sentences   = AI.sentence.split_sentences( message );
-		console.log( 'Sentences : ', sentences );
-		var association = AI.absorb.associations( sentences );
-		var response    = AI.respond.conversation( sentences, association );
-		// Response text: The word "input_word" has been stored in my associative memory.<br><br>input_word (pos) - definition
+		var sentences = AI.sentence.split_sentences( message );
+		var content   = AI.decipher.sentences( sentences );
+		var response  = AI.respond.conversation( sentences, content );
 		
 		// TODO : If matching association already exists, the computer should ask if I am referring to the existing definition or a new definition.
+		//     -Integrate this code into the computer response interface : var absorb_response = AI.absorb.content( sentences );
 		
 		setTimeout( function(){
 			QUE.views.conversation.send_computer_message( response );
