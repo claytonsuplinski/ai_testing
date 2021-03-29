@@ -17,7 +17,7 @@ a, a:hover, a:active, a:focus{
 }
 
 .button{
-	width:60px;
+	width:75px;
 	background:#264971;
 	color:#fff;
 	text-align:center;
@@ -27,6 +27,7 @@ a, a:hover, a:active, a:focus{
 	border:1px solid rgba(255,255,255,0.3);
 	border-radius:100px;
 	display:inline-block;
+	box-sizing:border-box;
 }
 
 #content{

@@ -9,6 +9,24 @@ QUE.views.memories.get_definition_line = function( obj, k, key, val ){
 	'</tr>';
 };
 
+QUE.views.memories.get_definition_html = function( def ){
+	return '<table class="definition">' +
+		( !def.r ? '' : this.get_definition_line( def, 'r', 'Root Word'      , def.r            ) ) +
+		( !def.p ? '' : this.get_definition_line( def, 'p', 'POS'            , AI.parts_of_speech.convert_pos_string( def.p, 'key', 'full' ) ) ) +
+		( !def.t ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
+		( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
+		( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
+		( !def.x ? '' :
+			this.get_definition_line( def, 'x', 'Algorithmic Defs', 
+				'<table class="sub-definition code">' +
+					( !def.x.c ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
+					( !def.x.q ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
+				'</table>'
+			)
+		) +
+	'</table>';
+};
+
 QUE.views.memories.draw = function(){
 	if( !this.memory_types ){
 		this.memory_types = Object.keys( MEM.learned );
@@ -31,27 +49,10 @@ QUE.views.memories.draw = function(){
 			// '</div>' +
 			'<div class="ui-content" id="memories">' +
 				curr_memory.map(function( entry ){
-					console.log( entry );
 					return '<div class="entry">' + 
 						'<div class="word">' + entry.w + '</div>' +
 						( !entry.d ? '' :
-							entry.d.map(function( def ){
-								return '<table class="definition">' +
-									( !def.r ? '' : this.get_definition_line( def, 'r', 'Root Word'      , def.r            ) ) +
-									( !def.p ? '' : this.get_definition_line( def, 'p', 'POS'            , AI.parts_of_speech.convert_pos_string( def.p, 'key', 'full' ) ) ) +
-									( !def.t ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
-									( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
-									( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
-									( !def.x ? '' :
-										this.get_definition_line( def, 'x', 'Algorithmic Defs', 
-											'<table class="sub-definition code">' +
-												( !def.x.c ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
-												( !def.x.q ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
-											'</table>'
-										)
-									) +
-								'</table>';
-							}, this).join('<hr class="definition-divider">')
+							entry.d.map(function( def ){ return this.get_definition_html( def ); }, this).join( '<hr class="definition-divider">' )
 						) +
 					'</div>';
 				}, this).join('') +

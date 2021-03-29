@@ -30,56 +30,48 @@ MEM.learned.associations.load = function( callback ){
 MEM.learned.associations.add_word = function( word ){
 	var entry = { w : word.w, d : [] };
 	if( word.d ) entry.d.push( word.d );
-	this.entries.push( entry );
+	this.entries.splice( QUE.functions.get_sorted_index( this.entries.map( x => x.w ), entry.w ), 0, entry );
 };
 
 MEM.learned.associations.add_definition = function( word ){
-	var entry = this.query({ word : word.w });
+	var entry = this.get_word( word.w );
 	if( entry ) entry.d.push( word.d );
 };
 
-MEM.learned.associations.modify_definition = function( word, definition_idx ){
-	var entry = this.query({ word : word.w });
+MEM.learned.associations.update_definition = function( word, definition_idx ){
+	var entry = this.get_word( word.w );
 	if( entry ) Object.assign( entry.d[ definition_idx ], word.d );
-};
-
-MEM.learned.associations.add = function( curr_values, update_values ){
-	var update_values = update_values || {};
-
-	var word = this.entries.find(function( entry ){ return entry.w == curr_values.w; });
-	if( !word ){
-		word = { w : curr_values.w, d : [] };
-		this.entries.splice( QUE.functions.get_sorted_index( this.entries.map( x => x.w ), curr_values.w ), 0, word );
-	}
-	
-	if( curr_values.d ){
-		var def_keys = Object.keys( curr_values.d );
-		var definition = word.d.find(function( d ){
-			return def_keys.every(function( k ){ return d[ k ] == curr_values.d[ k ]; }); // I may need some sort of "recursive equals" function here (for nested values).
-		});
-		if( definition && update_values.d ){
-			Object.assign( definition, update_values.d );
-		}
-		else if( !definition ){
-			definition = {};
-			Object.assign( definition, curr_values.d );
-			word.d.push( definition );
-		}
-	}
-	console.log( 'Add : ', curr_values, update_values, word );
 };
 
 MEM.learned.associations.save = function(){
 	QUE.functions.download_json( this.entries, this.name + '.json' );
 };
 
+MEM.learned.associations.get_word = function( word ){
+	var word = word.toLowerCase();
+	return this.entries.find(function( entry ){ return entry.w == word; });
+};
+
+MEM.learned.associations.get_definitions = function( word, def_criteria, params ){
+	var params = params || {};
+	var word   = ( typeof word == 'object' ? word : this.get_word( word ) );
+	if( word ){
+		var is_match = function( def, x ){ return ( JSON.stringify( def[ x ] ) == JSON.stringify( def_criteria[ x ] ) ); };
+		if( params.update_match ){
+			is_match = function( def, x ){ return ( JSON.stringify( def[ x ] ) == JSON.stringify( def_criteria[ x ] ) || def[ x ] === undefined ); };
+		}
+	
+		return word.d.filter(function( def ){
+			return Object.keys( def_criteria ).every(function( x ){ return is_match( def, x ); });
+		});
+	}
+	return [];
+};
+
 MEM.learned.associations.query = function( p ){
 	var result = false;
 	
-	if( p.word ){
-		var word = p.word.toLowerCase();
-		result = this.entries.find(function( entry ){ return entry.w == word; });
-	}
+	if( p.word ) result = this.get_word( p.word );
 	
 	return result;
 };

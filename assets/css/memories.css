@@ -20,50 +20,6 @@
 	border-color:rgba(255,255,255,0.2);
 }
 
-#memories .entry .definition{
-	color:#fff;
-	font-size:10px;
-	background:#444019;
-	width:calc( 100% - 10px );
-	margin:2px 5px 2px 5px;
-	border-collapse:collapse;
-}
-
 #memories .entry table:nth-of-type(even){
 	background:#443019;
-}
-
-#memories .entry .definition td{
-	padding:1px 2px;
-	border:1px solid #111;
-}
-
-#memories .entry .definition .name{
-	width:100px;
-	background:rgba(0,0,0,0.35);
-}
-
-#memories .entry .definition .key{
-	width:7px;
-	background:rgba(0,0,0,0.75);
-	color:rgba(255,255,255,0.75);
-	text-align:center;
-}
-
-#memories .entry .definition .sub-definition{
-	background:#333;
-	color:#fff;
-	width:calc(100% - 5px);
-	margin:2px;
-	font-size:10px;
-	border-collapse:collapse;
-}
-
-#memories .entry .definition .sub-definition.code{
-	background:#204457;
-}
-
-#memories .entry .definition .sub-definition.code .info{
-	font-family:monospace;
-	font-weight:700;
 }

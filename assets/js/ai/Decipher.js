@@ -35,7 +35,13 @@ AI.decipher.sentences = function( sentences ){
 	}
 	
 	// Determine if association already exists
-	if( response.association ) response.matching_entry = MEM.learned.associations.query({ word : response.association.w });
+	if( response.association ){
+		response.matching_entry = MEM.learned.associations.get_word( response.association.w );
+		if( response.matching_entry && response.association.d ){
+			var matches = MEM.learned.associations.get_definitions( response.association.w, response.association.d, { update_match : true } );
+			if( matches.length ) response.matching_definitions = matches;
+		}
+	}
 	
 	return response;
 };

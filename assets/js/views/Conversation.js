@@ -40,8 +40,10 @@ QUE.views.conversation.send_user_message = function(){
 	//     -List of different parts of speech (slide 2) : http://www.stat.columbia.edu/~madigan/DM08/hmm.pdf
 };
 
-QUE.views.conversation.send_computer_message = function( response ){
-	this.send_message({ speaker : 'Computer', content : response || "Hello, I'm the computer!" });
+QUE.views.conversation.send_computer_message = function( message ){
+	var message = ( typeof message == 'object' ? message : { content : message.content || "Hello, I'm the computer!" } );
+	message.speaker = 'Computer';
+	this.send_message( message );
 };
 
 QUE.views.conversation.save_computer_memory = function(){
@@ -68,7 +70,12 @@ QUE.views.conversation.draw = function(){
 					return '<div class="message ' + ( message.speaker == 'Computer' ? 'computer' : '' ) + '">' +
 						[
 							'<div class="speaker">' + message.speaker + '</div>',
-							'<div class="message-body">' + message.content + '</div>',
+							'<div class="message-body">' +
+								message.content + 
+								( !message.prompt ? '' : 
+									'<div class="prompt">' + message.prompt + '</div>'
+								) +
+							'</div>',
 							'<div class="timestamp">' + message.timestamp + '</div>',
 						].join('') +
 					'</div>';
