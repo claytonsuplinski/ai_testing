@@ -21,27 +21,29 @@ AI.respond.conversation = function( sentences, content ){
 	// ---------------------------------------------------------------------
 	if( !content.matching_definitions ){
 		AI.absorb.add_content( content );
+
+		var definition_added = 'Definition added for the word &quot;' + association.w + '&quot;.';
 	
 		if( association.d.r ){
 			return {
 				content : [
-					'Definition added for the word &quot;' + association.w + '&quot;.',
+					definition_added,
 					'The root word for "' + association.w + '" is "' + association.d.r + '".',
 				].join('<br>')
 			};
 		}
+		else if( association.d.p ){
+			return {
+				content : [
+					definition_added,
+					'The part of speech for "' + association.w + '" is "' + AI.parts_of_speech.convert_pos_string( association.d.p, 'key', 'full' ) + '".',
+				].join('<br>')
+			};
+		}
 		
-		return {
-			content : [
-				'Definition added for the word &quot;' + association.w + '&quot;.',
-				'The part of speech for "' + association.w + '" is "' + AI.parts_of_speech.convert_pos_string( association.d.p, 'key', 'full' ) + '".',
-			].join('<br>')
-		};
+		return { content : [ definition_added ].join('<br>') };
 	}
 	else{
-		// TODO : Create an interface for the user to select whether a new definition should be added or an existing definition should be updated for the word.
-		//     -I'll need to calculate the definition index for each matching definition (with respect to all definitions, not just the matching definitions).
-		console.log( content.matching_definitions );
 		var match_indices = content.matching_definitions.map(function( def ){
 			return content.matching_entry.d.findIndex(function( d ){ return JSON.stringify( d ) == JSON.stringify( def ); });
 		});
@@ -84,4 +86,16 @@ AI.respond.conversation = function( sentences, content ){
 	}
 	
 	return { content : "Sorry, I didn't understand that." };
+};
+
+AI.respond.to_statement = function( sentence, content ){
+};
+
+AI.respond.to_question = function( sentence, content ){
+};
+
+AI.respond.to_command = function( sentence, content ){
+};
+
+AI.respond.to_exclamation = function( sentence, content ){
 };

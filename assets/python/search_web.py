@@ -13,22 +13,6 @@ DATA_DIR = '{0}/../data'.format( BASE_DIR )
 
 OUTPUT_FILE = '{0}/formatted_dictionary.json'.format( DATA_DIR )
 
-POS = {
-    "a."      : "j",
-    "adj"     : "j",
-    "adv"     : "a",
-    "adv."    : "a",
-    "conj."   : "c",
-    "interj." : "i",
-    "n."      : "n",
-    "noun"    : "n",
-    "p."      : "s",  # "p." == past (I think?)
-    "prep."   : "p",
-    "pron."   : "o",
-    "v."      : "v",
-    "verb"    : "v"
-}
-
 ####################
 # Helper Functions #
 ####################
@@ -50,16 +34,27 @@ def extract_link_text( html ):
 def is_ascii( s ):
     return all( ord(c) < 128 for c in s )
 
+def contains_alphanumeric( s ):
+    return re.search( '[a-zA-Z0-9]', s )
+
+def remove_all_html( content ):
+    return re.sub( '<[^>]+>', '', content )
+
 def remove_html_tags( content, tags ):
     for tag in tags:
-        content = re.sub( '<{0}.*?\/{0}>'.format( tag ), '', content )
+        content = re.sub( r'<[ ]*{0}.*?\/[ ]*{0}[ ]*>'.format( tag ), '', content, flags=(re.IGNORECASE | re.MULTILINE | re.DOTALL) )
     return content
 
 def extract_webpage_content( content ):
-    return remove_html_tags(
-        content,
-        [ 'head', 'script', 'style', 'video' ]
-    )
+    lines = remove_all_html(
+        remove_html_tags(
+            content,
+            [ 'footer', 'head', 'nav', 'script', 'style', 'sup', 'video' ]
+        )
+    ).split('\n')
+    lines = [ x.strip() for x in lines ]
+    lines = [ x for x in lines if not x.isspace() and len( x ) and contains_alphanumeric( x ) ]
+    return lines
 
 def extract_webpage_links( content ):
     links = []
@@ -80,17 +75,25 @@ def retrieve_webpage( url ):
     req.close()
     links   = extract_webpage_links(   content )
     content = extract_webpage_content( content )
-    print( '---- LINKS ----' )
-    for link in links:
-        print( '---------------' )
-        print( 'text : ', link[ 'text' ] )
-        print( 'href : ', link[ 'href' ] )
-    print( 'Num links : ', len( links ) )
-    return content
+
+    return content, links
 
 ######################
 # Process Dictionary #
 ######################
 
 URL = 'https://en.wikipedia.org/wiki/Kingdom_Hearts_(video_game)'
-retrieve_webpage( URL )
+content, links = retrieve_webpage( URL )
+
+print( '---- CONTENT ----' )
+for line in content:
+    print( line )
+
+# print( '---- LINKS ----' )
+# for link in links:
+#     print( '---------------' )
+#     print( 'text : ', link[ 'text' ] )
+#     print( 'href : ', link[ 'href' ] )
+
+print( 'Num content lines : ', len( content ) )
+print( 'Num links : ', len( links ) )

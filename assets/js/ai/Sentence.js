@@ -11,6 +11,15 @@ AI.sentence.get_type = function( sentence ){
 	return '???';
 };
 
+AI.sentence.get_sentence_subject = function( sentence ){
+};
+
+AI.sentence.get_sentence_action = function( sentence ){
+};
+
+AI.sentence.get_sentence_target_object = function( sentence ){
+};
+
 AI.sentence.get_structure = function( sentence ){
 	if( !this.is_sentence( sentence ) ) return 'invalid';
 	return 'simple, compound, complex, or compound-complex';

@@ -291,6 +291,11 @@ https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
 	-Place subject of sentence in square brackets.
 	-Multi-word nouns will be contained between two percent signs.
 -For nouns, I'll need to determine if it is a "general" (any, a) or "specific" (the, Mount Rushmore) noun.
+
+-Look for grammatical patterns in sentences:
+	https://grammar.yourdictionary.com/sentences/grammar-patterns-for-sentences.html
+	https://grammar.collinsdictionary.com/grammar-pattern/verbs
+	-See ./assets/data/facts/grammar_patterns.json
 		
 ------------------------------------------------------------
 | Restrictions to input English text used for this program |

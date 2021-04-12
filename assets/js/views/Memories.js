@@ -21,6 +21,7 @@ QUE.views.memories.get_definition_html = function( def ){
 				'<table class="sub-definition code">' +
 					( !def.x.c ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
 					( !def.x.q ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
+					( !def.x.v ? '' : this.get_definition_line( def.x, 'v', 'Value'      , def.x.v ) ) +
 				'</table>'
 			)
 		) +

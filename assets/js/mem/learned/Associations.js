@@ -40,16 +40,46 @@ MEM.learned.associations.add_definition = function( word ){
 
 MEM.learned.associations.update_definition = function( word, definition_idx ){
 	var entry = this.get_word( word.w );
-	if( entry ) Object.assign( entry.d[ definition_idx ], word.d );
+	if( entry ){
+		// For some keys in entry.d, the value will need to be appended to an array, instead of simply assigned.
+		[ 'c' ].forEach(function( x ){
+			if( word.d[ x ] !== undefined ){
+				if( !entry.d[ definition_idx ][ x ] ) entry.d[ definition_idx ][ x ] = [];
+				if( !entry.d[ definition_idx ][ x ].includes( word.d[ x ] ) ) entry.d[ definition_idx ][ x ] = entry.d[ definition_idx ][ x ].concat( word.d[ x ] );
+				delete word.d[ x ];
+			}
+		}, this);
+		// For some keys in entry.d, the value will need to be assigned to a nested object.
+		[ 'x' ].forEach(function( x ){
+			if( word.d[ x ] !== undefined ){
+				if( !entry.d[ definition_idx ][ x ] ) entry.d[ definition_idx ][ x ] = {};
+				Object.assign( entry.d[ definition_idx ][ x ], word.d[ x ] );
+				delete word.d[ x ];
+			}
+		}, this);
+		Object.assign( entry.d[ definition_idx ], word.d );
+	}
 };
 
 MEM.learned.associations.save = function(){
 	QUE.functions.download_json( this.entries, this.name + '.json' );
 };
 
+MEM.learned.associations.algorithmic_definition_type_to_key = function( type ){
+	switch( type.toLowerCase() ){
+		case 'conditional' : return 'c';
+		case 'quantity'    : return 'q';
+		case 'value'       : return 'v';
+	}
+	return false;
+};
+
 MEM.learned.associations.get_word = function( word ){
 	var word = word.toLowerCase();
 	return this.entries.find(function( entry ){ return entry.w == word; });
+};
+
+MEM.learned.associations.get_associations = function( word ){
 };
 
 MEM.learned.associations.get_definitions = function( word, def_criteria, params ){

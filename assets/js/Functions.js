@@ -10,6 +10,10 @@ QUE.functions.remove_punctuation = function( str ){
 	return str.replace(/[.,\/#!$%?\^&\*;:{}=\-\[\]_`~()\']/g, "").replace(/ /g, '');
 };
 
+QUE.functions.strip_ending_period = function( str ){
+	return str.substring( 0, str.lastIndexOf('.') );
+};
+
 QUE.functions.has_letter = function( str ){
 	return ( /[A-Za-z]/i ).test( str );
 };
