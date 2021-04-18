@@ -21,7 +21,7 @@ AI.decipher.patterns = [
 	{
 		splits   : [ 'the ', ' definition of ', ' is ' ],
 		callback : function( response, parts ){
-			var algorithmic_def_key = MEM.learned.associations.algorithmic_definition_type_to_key( parts[ 1 ] );
+			var algorithmic_def_key = MEM.learned.dictionary.algorithmic_definition_type_to_key( parts[ 1 ] );
 			response.association = { 'w' : parts[ 2 ], 'd' : { 'x' : {} } };
 			response.association.d.x[ algorithmic_def_key ] = QUE.functions.strip_ending_period( parts[ 3 ] );
 		}
@@ -71,10 +71,10 @@ AI.decipher.sentences = function( sentences ){
 	
 	// Determine if association already exists
 	if( response.association ){
-		response.matching_entry = MEM.learned.associations.get_word( response.association.w );
+		response.matching_entry = MEM.learned.dictionary.get_word( response.association.w );
 		if( response.matching_entry && response.association.d ){
 			response.matching_definitions = response.matching_entry.d;
-			// var matches = MEM.learned.associations.get_definitions( response.association.w, response.association.d, { update_match : true } );
+			// var matches = MEM.learned.dictionary.get_definitions( response.association.w, response.association.d, { update_match : true } );
 			// if( matches.length ) response.matching_definitions = matches;
 		}
 	}

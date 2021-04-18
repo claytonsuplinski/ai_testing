@@ -10,8 +10,7 @@ QUE.hashlinks.on_start = function(){
 	};
 	
 	var loading_sequence = [
-		MEM.facts.dictionary,
-		MEM.learned.associations,
+		MEM.learned.dictionary,
 	];
 	
 	var load = function( idx ){

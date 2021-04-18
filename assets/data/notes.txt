@@ -296,6 +296,24 @@ https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
 	https://grammar.yourdictionary.com/sentences/grammar-patterns-for-sentences.html
 	https://grammar.collinsdictionary.com/grammar-pattern/verbs
 	-See ./assets/data/facts/grammar_patterns.json
+
+------------------------------
+| Parsing Sentences Examples |
+------------------------------
+
+> I ate pie.
+"ate" is a verb (past tense) -- via dictionary.
+"I" is a noun -- via dictionary.
+"pie" is a noun -- via dictionary.
+This sentence matches the Subject-Action-Object pattern.
+"I" is the subject.
+"ate" is the action.
+"pie" is the object.
+
+> The pie was eaten by me.
+"eaten" is a verb (past participle) -- via dictionary.
+Given that the verb is in the past participle, and surrounded by "was" and "by", this indicates passive voice.
+
 		
 ------------------------------------------------------------
 | Restrictions to input English text used for this program |

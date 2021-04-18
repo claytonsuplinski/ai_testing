@@ -32,10 +32,11 @@ AI.sentence.is_sentence = function( sentence ){
 	var has_verb = false;
 	
 	sentence.words.forEach(function( word ){
-		var result = MEM.facts.dictionary.search( word );
-		if( result ){
-			if     ( result.d.find( d => d.p == 'v' ) ) has_verb = true;
-			else if( result.d.find( d => d.p == 'n' ) ) has_noun = true;
+		var definitions = MEM.learned.dictionary.get_definitions( word );
+		console.log( definitions );
+		if( definitions.length ){
+			if     ( definitions.find( d => d.p == 'v' ) ) has_verb = true;
+			else if( definitions.find( d => d.p == 'n' ) ) has_noun = true;
 		}
 	}, this);
 	
@@ -51,7 +52,7 @@ AI.sentence.ends_with_abbreviation = function( text ){
 	var last_word = words[ words.length - 1 ];
 	if( text.endsWith( '.' ) ){
 		if( last_word.length <= 2 ) return true;
-		if( MEM.facts.dictionary.search( last_word ) ) return true;
+		if( MEM.learned.dictionary.get_word( last_word ) ) return true;
 	}
 
 	return false;

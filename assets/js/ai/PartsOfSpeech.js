@@ -11,7 +11,19 @@ AI.parts_of_speech = {
 	]
 };
 
-AI.parts_of_speech.classify = function( word_arr ){
+AI.parts_of_speech.classify_sentence = function( word_arr ){
+	console.log( word_arr );
+	return word_arr.map( word => this.classify_word( word ) );
+};
+
+AI.parts_of_speech.classify_word = function( word ){
+	var word_entry = false;
+	                  try{ word_entry = MEM.facts.dictionary.search(       word ); } catch(e){};
+	if( !word_entry ) try{ word_entry = MEM.learned.associations.get_word( word ); } catch(e){};
+
+	if( word_entry ) return [ ...new Set( word_entry.d.map( x => x.p ) ) ];
+	
+	return false;
 };
 
 AI.parts_of_speech.convert_pos_string = function( str, input_rep, output_rep ){

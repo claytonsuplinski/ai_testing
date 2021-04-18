@@ -58,7 +58,7 @@ AI.respond.conversation = function( sentences, content ){
 							'<div class="button update-definition" onclick="' + this_message + '.functions.update(' + match_indices[i] + ');">' + 
 								'Update Definition' + 
 							'</div>' +
-							QUE.views.memories.get_definition_html( def ) +
+							QUE.views.dictionary.get_definition_html( def ) +
 						'</div>';
 					}).join(''),
 			functions : {
