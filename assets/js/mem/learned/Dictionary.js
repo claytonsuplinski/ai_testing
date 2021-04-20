@@ -31,6 +31,7 @@ MEM.learned.dictionary.add_word = function( word ){
 	var entry = { w : word.w, d : [] };
 	if( word.d ) entry.d.push( word.d );
 	this.entries.splice( QUE.functions.get_sorted_index( this.entries.map( x => x.w ), entry.w ), 0, entry );
+	return entry;
 };
 
 MEM.learned.dictionary.change_word = function( old_word, new_word ){

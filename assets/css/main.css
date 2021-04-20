@@ -53,20 +53,38 @@ select{
 }
 
 .ui-section select,
-.ui-section input{
+.ui-section input,
+.ui-section textarea{
 	background:#303f51;
 	color:#fff;
 	border:1px solid rgba(255,255,255,0.5);
 	padding:5px 8px;
 	font-size:12px;
+	vertical-align:top;
 }
 
 .ui-section select{
 	width:calc( 100% - 125px );
 }
 
-.ui-section input{
+.ui-section textarea{
+	margin:0;
+	height:27px;
+}
+
+.ui-section textarea.expanded{
+	height:80vh;
+}
+
+.ui-section input,
+.ui-section textarea{
 	width:calc( 100% - 85px );
+	margin-right:10px;
+}
+
+.ui-section .half-input{
+	    width:calc( 50% - 50px );
+	max-width:calc( 50% - 50px );
 }
 
 .ui-section .select-label{
@@ -81,7 +99,7 @@ select{
 
 .ui-content{
 	width :700px;
-	height:calc(100vh - 125px);
+	height:calc(100vh - 145px);
 	min-height:100px;
 	max-width:100%;
 	margin:10px auto;

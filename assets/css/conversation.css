@@ -1,5 +1,5 @@
 #send-message-button{
-	margin-left:10px;
+	margin-right:0;
 }
 
 #send-message-button:hover{
@@ -13,10 +13,6 @@
 
 #save-button:hover{
 	background:#299040;
-}
-
-#conversation{
-	height:calc( 100vh - 170px );
 }
 
 #conversation .message{

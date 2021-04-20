@@ -37,7 +37,43 @@ QUE.views.dictionary.get_definition_html = function( def, modify_params ){
 				'</table>'
 			)
 		) +
+		( !def.a ? '' :
+			this.get_definition_line( def, 'a', 'Associations', 
+				def.a.map(function( association ){
+					return '<table class="sub-definition">' +
+						( !association.w ? '' : this.get_definition_line( association, 'w', 'Word', association.w ) ) +
+						( !association.t ? '' : this.get_definition_line( association, 't', 'Type', association.t ) ) +
+					'</table>';
+				}, this).join('')
+			)
+		) +
 	'</table>';
+};
+
+QUE.views.dictionary.add_entry = function(){
+	console.log( $( "#add-word"       ).val() );
+	console.log( $( "#add-definition" ).val() );
+	var word       = $( "#add-word"       ).val();
+	var definition = $( "#add-definition" ).val();
+
+	if( !word ){
+		alert( 'Error : Word not set.' );
+		return;
+	}
+
+	try{
+		definition = JSON.parse( definition );
+
+		var entry = MEM.learned.dictionary.get_word( word );
+		if( !entry ) entry = MEM.learned.dictionary.add_word({ w : word });
+
+		if( definition ) MEM.learned.dictionary.add_definition({ w : word, d : definition });
+		
+		this.draw();
+	} catch(e){
+		alert( 'Error: Invalid JSON syntax for definition.' );
+		console.log( e );
+	}
 };
 
 QUE.views.dictionary.delete_word = function( ele, idx ){
@@ -95,15 +131,11 @@ QUE.views.dictionary.draw = function(){
 	$( "#content" ).html(
 		QUE.view.get_header() +
 		'<div class="content">' +
-			// Note : If other types of memories get implemented, this select object will be useful. Otherwise, it is unnecessary with only one memory file.
-			// '<div class="ui-section">' + 
-			// 	'<div class="select-label">Memory Type : </div>' +
-			// 	'<select onchange="QUE.views.dictionary.select( this.value );">' +
-			// 		this.memory_types.map(function( x, i ){
-			// 			return '<option value="' + i + '">' + QUE.functions.to_title_case( x ) + '</option>';
-			// 		}).join('') +
-			// 	'</select>' +
-			// '</div>' +
+			'<div class="ui-section" id="user-input-field">' + 
+				'<input    id="add-word"       class="half-input" placeholder="Word"></input>' + 
+				'<textarea id="add-definition" class="half-input" placeholder="Definition" rows="1" onfocus="$( this ).addClass(\'expanded\');" onblur="$( this ).removeClass(\'expanded\');"></textarea>' + 
+				'<div id="send-message-button" class="button" onclick="QUE.views.dictionary.add_entry();">Add</div>' +
+			'</div>' +
 			'<div class="ui-content" id="dictionary">' +
 				curr_memory.map(function( entry, word_idx ){
 					return '<div class="entry">' + 
