@@ -121,13 +121,6 @@ QUE.views.dictionary.finish_editing_definition = function( ele, word_idx, def_id
 };
 
 QUE.views.dictionary.draw = function(){
-	if( !this.memory_types ){
-		this.memory_types = Object.keys( MEM.learned );
-		this.memory_index = 0;
-	}
-	
-	var curr_memory = MEM.learned[ this.memory_types[ this.memory_index ] ].entries;
-
 	$( "#content" ).html(
 		QUE.view.get_header() +
 		'<div class="content">' +
@@ -137,7 +130,7 @@ QUE.views.dictionary.draw = function(){
 				'<div id="send-message-button" class="button" onclick="QUE.views.dictionary.add_entry();">Add</div>' +
 			'</div>' +
 			'<div class="ui-content" id="dictionary">' +
-				curr_memory.map(function( entry, word_idx ){
+				MEM.learned.dictionary.entries.map(function( entry, word_idx ){
 					return '<div class="entry">' + 
 						'<div class="word ' + this.mode + '-mode" onclick="QUE.views.dictionary.' + this.mode + '_word( this, ' + word_idx + ' );this.onclick=false;">' + 
 							entry.w + 
