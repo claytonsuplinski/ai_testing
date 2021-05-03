@@ -6,7 +6,7 @@ QUE.views.dictionary.toggle_mode = function(){
 };
 
 QUE.views.dictionary.get_definition_line = function( obj, k, key, val ){
-	if( !obj[ k ] ) return '';
+	if( obj[ k ] === undefined ) return '';
 	return '<tr>' +
 		'<td class="key ">' + k   + '</td>' +
 		'<td class="name">' + key + '</td>' +
@@ -23,26 +23,44 @@ QUE.views.dictionary.get_definition_html = function( def, modify_params ){
 	} 
 
 	return '<table class="definition ' + classes + '" onclick="' + onclick + '">' +
-		( !def.r ? '' : this.get_definition_line( def, 'r', 'Root Word'      , def.r            ) ) +
-		( !def.p ? '' : this.get_definition_line( def, 'p', 'POS'            , AI.parts_of_speech.convert_pos_string( def.p, 'key', 'full' ) ) ) +
-		( !def.t ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
-		( !def.c ? '' : this.get_definition_line( def, 'c', 'Classifications', def.c.join(', ') ) ) +
-		( !def.d ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
-		( !def.x ? '' :
+		( def._ === undefined ? '' : this.get_definition_line( def, '_', 'ID'             , def._            ) ) +
+		( def.p === undefined ? '' : this.get_definition_line( def, 'p', 'POS'            , AI.parts_of_speech.convert_pos_string( def.p, 'key', 'full' ) ) ) +
+		( def.t === undefined ? '' : this.get_definition_line( def, 't', 'Word Types'     , def.t.join(', ') ) ) +
+		( def.d === undefined ? '' : this.get_definition_line( def, 'd', 'Descriptions'   , def.d.join('; ') ) ) +
+		( def.x === undefined ? '' :
 			this.get_definition_line( def, 'x', 'Algorithmic Defs', 
 				'<table class="sub-definition code">' +
-					( !def.x.c ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
-					( !def.x.q ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
-					( !def.x.v ? '' : this.get_definition_line( def.x, 'v', 'Value'      , def.x.v ) ) +
+					( def.x.c === undefined ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
+					( def.x.q === undefined ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
+					( def.x.v === undefined ? '' : this.get_definition_line( def.x, 'v', 'Value'      , def.x.v ) ) +
 				'</table>'
+			)
+		) +
+		( def.r === undefined ? '' :
+			this.get_definition_line( def, 'r', 'Root Word', 
+				'<table class="sub-definition">' +
+					( def.r.w === undefined ? '' : this.get_definition_line( def.r, 'w', 'Word'         , def.r.w ) ) +
+					( def.r.d === undefined ? '' : this.get_definition_line( def.r, 'd', 'Definition ID', def.r.d ) ) +
+				'</table>'
+			)
+		) +
+		( !def.c ? '' :
+			this.get_definition_line( def, 'c', 'Classifications', 
+				def.c.map(function( obj ){
+					return '<table class="sub-definition">' +
+						( obj.w === undefined ? '' : this.get_definition_line( obj, 'w', 'Word'         , obj.w ) ) +
+						( obj.d === undefined ? '' : this.get_definition_line( obj, 'd', 'Definition ID', obj.d ) ) +
+					'</table>';
+				}, this).join('')
 			)
 		) +
 		( !def.a ? '' :
 			this.get_definition_line( def, 'a', 'Associations', 
-				def.a.map(function( association ){
+				def.a.map(function( obj ){
 					return '<table class="sub-definition">' +
-						( !association.w ? '' : this.get_definition_line( association, 'w', 'Word', association.w ) ) +
-						( !association.t ? '' : this.get_definition_line( association, 't', 'Type', association.t ) ) +
+						( obj.w === undefined ? '' : this.get_definition_line( obj, 'w', 'Word'         , obj.w ) ) +
+						( obj.d === undefined ? '' : this.get_definition_line( obj, 'd', 'Definition ID', obj.d ) ) +
+						( obj.t === undefined ? '' : this.get_definition_line( obj, 't', 'Type'         , obj.t ) ) +
 					'</table>';
 				}, this).join('')
 			)
@@ -113,6 +131,7 @@ QUE.views.dictionary.finish_editing_definition = function( ele, word_idx, def_id
 	try{
 		var updated_definition = JSON.parse( $( ele ).val() );
 		MEM.learned.dictionary.entries[ word_idx ].d[ def_idx ] = updated_definition;
+		MEM.learned.dictionary.recalculate_max_def_id( MEM.learned.dictionary.entries[ word_idx ] );
 		this.draw();
 	} catch(e){
 		alert( 'Error: Invalid JSON syntax.' );
@@ -133,7 +152,7 @@ QUE.views.dictionary.draw = function(){
 				MEM.learned.dictionary.entries.map(function( entry, word_idx ){
 					return '<div class="entry">' + 
 						'<div class="word ' + this.mode + '-mode" onclick="QUE.views.dictionary.' + this.mode + '_word( this, ' + word_idx + ' );this.onclick=false;">' + 
-							entry.w + 
+							entry.w + ' <span class="max-def-id">' + entry._ + '</span>' +
 						'</div>' +
 						( !entry.d ? '' :
 							entry.d.map(function( def, def_idx ){

@@ -28,9 +28,9 @@ MEM.learned.dictionary.load = function( callback ){
 };
 
 MEM.learned.dictionary.add_word = function( word ){
-	var entry = { w : word.w, d : [] };
-	if( word.d ) entry.d.push( word.d );
+	var entry = { w : word.w, d : [], '_' : 0 };
 	this.entries.splice( QUE.functions.get_sorted_index( this.entries.map( x => x.w ), entry.w ), 0, entry );
+	if( word.d ) this.add_definition( word );
 	return entry;
 };
 
@@ -42,7 +42,11 @@ MEM.learned.dictionary.change_word = function( old_word, new_word ){
 
 MEM.learned.dictionary.add_definition = function( word ){
 	var entry = this.get_word( word.w );
-	if( entry ) entry.d.push( word.d );
+	if( entry ){
+		word.d._ = entry._;
+		entry._++;
+		entry.d.push( word.d );
+	}
 };
 
 MEM.learned.dictionary.update_definition = function( word, definition_idx ){
@@ -65,6 +69,7 @@ MEM.learned.dictionary.update_definition = function( word, definition_idx ){
 			}
 		}, this);
 		Object.assign( entry.d[ definition_idx ], word.d );
+		this.recalculate_max_def_id( word );
 	}
 };
 
@@ -79,6 +84,15 @@ MEM.learned.dictionary.algorithmic_definition_type_to_key = function( type ){
 		case 'value'       : return 'v';
 	}
 	return false;
+};
+
+MEM.learned.dictionary.recalculate_max_def_id = function( word ){
+	var entry = this.get_word( word.w );
+	if( entry ){
+		console.log( entry._ );
+		console.log( Math.max( ...entry.d.map( d => d._ + 1 ) ) );
+		entry._ = Math.max( entry._, Math.max( ...entry.d.map( d => d._ + 1 ) ) );
+	}
 };
 
 MEM.learned.dictionary.get_word = function( word ){
