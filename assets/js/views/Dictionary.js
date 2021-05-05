@@ -32,6 +32,7 @@ QUE.views.dictionary.get_definition_html = function( def, modify_params ){
 				'<table class="sub-definition code">' +
 					( def.x.c === undefined ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
 					( def.x.q === undefined ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
+					( def.x.t === undefined ? '' : this.get_definition_line( def.x, 't', 'Type'       , def.x.t ) ) +
 					( def.x.v === undefined ? '' : this.get_definition_line( def.x, 'v', 'Value'      , def.x.v ) ) +
 				'</table>'
 			)
