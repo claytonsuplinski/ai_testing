@@ -31,6 +31,7 @@ QUE.views.dictionary.get_definition_html = function( def, modify_params ){
 			this.get_definition_line( def, 'x', 'Algorithmic Defs', 
 				'<table class="sub-definition code">' +
 					( def.x.c === undefined ? '' : this.get_definition_line( def.x, 'c', 'Conditional', def.x.c ) ) +
+					( def.x.f === undefined ? '' : this.get_definition_line( def.x, 'f', 'Function'   , def.x.f ) ) +
 					( def.x.q === undefined ? '' : this.get_definition_line( def.x, 'q', 'Quantity'   , def.x.q ) ) +
 					( def.x.t === undefined ? '' : this.get_definition_line( def.x, 't', 'Type'       , def.x.t ) ) +
 					( def.x.v === undefined ? '' : this.get_definition_line( def.x, 'v', 'Value'      , def.x.v ) ) +
@@ -141,6 +142,8 @@ QUE.views.dictionary.finish_editing_definition = function( ele, word_idx, def_id
 };
 
 QUE.views.dictionary.draw = function(){
+	var scroll_top = $("#dictionary").scrollTop();
+
 	$( "#content" ).html(
 		QUE.view.get_header() +
 		'<div class="content">' +
@@ -171,6 +174,8 @@ QUE.views.dictionary.draw = function(){
 			'</div>' +
 		'</div>'
 	);
+
+	$("#dictionary").scrollTop( scroll_top );
 	
 	$( "#user-input-field input" ).focus();
 };

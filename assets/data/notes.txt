@@ -242,7 +242,7 @@ https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
 			
 -------------------------
 
--Active vs Passive voice
+-Active vs Passive voice -- https://medium.com/@lucillemoncrief/passive-voice-and-present-participle-a4370c8d87fc
 	-Active : Subject - Verb - Object
 		-Ex: I walked the dog.  ( Subject : I, Verb : walked, Object : the dog )
 	-Passive : Object - Verb - Subject
@@ -313,6 +313,10 @@ This sentence matches the Subject-Action-Object pattern.
 > The pie was eaten by me.
 "eaten" is a verb (past participle) -- via dictionary.
 Given that the verb is in the past participle, and surrounded by "was" and "by", this indicates passive voice.
+
+> Life is a characteristic that distinguishes physical entities that have biological processes from those that do not.
+  Life == 1 characteristic that distinguishes physical entities that have biological processes from those that do not.
+  Life == 1 characteristic that distinguishes physical entities that have biological processes from physical entities that do not.
 
 		
 ------------------------------------------------------------
