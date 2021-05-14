@@ -317,6 +317,9 @@ Given that the verb is in the past participle, and surrounded by "was" and "by",
 > Life is a characteristic that distinguishes physical entities that have biological processes from those that do not.
   Life == 1 characteristic that distinguishes physical entities that have biological processes from those that do not.
   Life == 1 characteristic that distinguishes physical entities that have biological processes from physical entities that do not.
+  
+  ( Life == 1 characteristic ) && ( Life distinguishes ( physical entities that have biological processes ) from ( physical entities that do not have biological processes ) ).
+  ( Life == 1 characteristic ) && ( Life distinguishes [ ( physical_entities.filter( x => x.biological_processes !== undefined ) ), ( physical_entities.filter( x => x.biological_processes === undefined ) ) ] ).
 
 		
 ------------------------------------------------------------

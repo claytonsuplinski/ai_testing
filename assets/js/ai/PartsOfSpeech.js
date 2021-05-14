@@ -3,6 +3,7 @@ AI.parts_of_speech = {
 		{ key : 'j', abbr : 'adj'   , full : 'adjective'    },
 		{ key : 'a', abbr : 'adv'   , full : 'adverb'       },
 		{ key : 'c', abbr : 'conj'  , full : 'conjunction'  },
+		{ key : 'd', abbr : 'det'   , full : 'determiner'   },
 		{ key : 'i', abbr : 'interj', full : 'interjection' },
 		{ key : 'n', abbr : 'n'     , full : 'noun'         },
 		{ key : 'p', abbr : 'prep'  , full : 'preposition'  },
