@@ -33,7 +33,6 @@ AI.sentence.is_sentence = function( sentence ){
 	
 	sentence.words.forEach(function( word ){
 		var definitions = MEM.learned.dictionary.get_definitions( word );
-		console.log( definitions );
 		if( definitions.length ){
 			if     ( definitions.find( d => d.p == 'v' ) ) has_verb = true;
 			else if( definitions.find( d => d.p == 'n' ) ) has_noun = true;
@@ -107,11 +106,23 @@ AI.sentence.split_sentences = function( text ){
 		
 		
 		// Classify the different parts of each sentence (like subject, action, object, etc...)
-		
+
+		// TODO : Replace the following code with MEM.learned.notion instances.
+		// 		-Note: there could be multiple subject/action/object tuples in one sentence.
 		if( sentence.words.length >= 3 ){
-			sentence.subject = sentence.words[ 0 ];
-			sentence.action  = sentence.words[ 1 ];
-			sentence.object  = sentence.words[ 2 ];
+			sentence.thoughts = [];
+
+			var target  = new MEM.learned.notion({ name : sentence.words[ 2 ] });
+			var action  = new MEM.learned.action({ name : sentence.words[ 1 ], target });
+			var subject = new MEM.learned.notion({ name : sentence.words[ 0 ], action });
+
+			var thought = new MEM.learned.thought({ subject, action, target });
+
+			sentence.thoughts.push( thought );
+
+			// sentence.subject = sentence.words[ 0 ];
+			// sentence.action  = sentence.words[ 1 ];
+			// sentence.object  = sentence.words[ 2 ];
 		}
 	}, this);
 	

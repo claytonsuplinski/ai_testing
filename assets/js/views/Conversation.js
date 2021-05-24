@@ -1,5 +1,13 @@
 QUE.views.conversation = { messages : [] };
 
+QUE.views.conversation.thoughts_popup = new JL.popup({
+	header : "Computer's Thoughts",
+});
+
+QUE.views.conversation.show_computer_thoughts = function(){
+	this.thoughts_popup.show();
+};
+
 QUE.views.conversation.send_message = function( message ){
 	if( !message.timestamp ) message.timestamp = QUE.functions.datetime_to_string( new Date() );
 	this.messages.unshift( message );
@@ -83,6 +91,7 @@ QUE.views.conversation.draw = function(){
 			'</div>' +
 			'<div class="ui-section">' +
 				'<div id="save-button" class="button" onclick="QUE.views.conversation.save_computer_memory();">Save</div>' +
+				'<div                  class="button" onclick="QUE.views.conversation.show_computer_thoughts();">Thoughts</div>' +
 			'</div>' +
 		'</div>'
 	);

@@ -15,11 +15,13 @@ AI.respond.conversation = function( sentences, content ){
 			}
 		} catch(e){}
 	}
+
+	console.log( content );
 	
 	// ---------------------------------------------------------------------
 	// | If the association doesn't already exist in the computer's memory |
 	// ---------------------------------------------------------------------
-	if( !content.matching_definitions ){
+	if( association && !content.matching_definitions ){
 		AI.absorb.add_content( content );
 
 		var definition_added = 'Definition added for the word &quot;' + association.w + '&quot;.';
@@ -43,7 +45,7 @@ AI.respond.conversation = function( sentences, content ){
 		
 		return { content : [ definition_added ].join('<br>') };
 	}
-	else{
+	else if( content.matching_defintions ){
 		var match_indices = content.matching_definitions.map(function( def ){
 			return content.matching_entry.d.findIndex(function( d ){ return JSON.stringify( d ) == JSON.stringify( def ); });
 		});
@@ -83,6 +85,15 @@ AI.respond.conversation = function( sentences, content ){
 		};
 		
 		return message_obj;
+	}
+	else if( content.thoughts ){
+		return {
+			content : content.thoughts.map(function( thoughts ){
+				return thoughts.map(function( thought ){
+					return thought.subject.name + ' {' + thought.action.name + '} ' + ( thought.target ? ' --> ' + thought.target.name : '' );
+				}).join('<br>');
+			}).join('<br>----------<br>')
+		};
 	}
 	
 	return { content : "Sorry, I didn't understand that." };

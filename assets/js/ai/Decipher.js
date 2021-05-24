@@ -53,6 +53,11 @@ AI.decipher.sentences = function( sentences ){
 
 	var sentence = sentences[ 0 ].raw;
 
+	// TODO : Stop using patterns when parsing the sentences.
+	//		-Use the MEM.learned.thoughts and MEM.learned.notion classes to represent the content.
+	//			-In the computer's response, visualize this content.
+	// 		-Utilize the MEM.learned.notion instances in sentences[ 0 ] (the notion objects are derived in AI.sentence).
+
 	this.patterns.forEach(function( pattern ){
 		if( !response.association ){
 			var sentence_copy  = sentence.toLowerCase();
@@ -77,6 +82,9 @@ AI.decipher.sentences = function( sentences ){
 			// var matches = MEM.learned.dictionary.get_definitions( response.association.w, response.association.d, { update_match : true } );
 			// if( matches.length ) response.matching_definitions = matches;
 		}
+	}
+	else{ // If no matching pattern, then provide the thoughts in the response object.
+		response.thoughts = sentences.map( s => s.thoughts );
 	}
 	
 	return response;

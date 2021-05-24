@@ -1,0 +1,135 @@
+.popup{
+        display     : none;
+        position    : fixed;
+        background  : rgba(0, 0, 0, 0.3);
+        top         : 0;
+        left        : 0;
+        width       : 100%;
+        height      : 100%;
+        padding     : 40px;
+        font-weight : 300;
+        z-index     : 777;
+		box-sizing  : border-box;
+}
+
+.popup .popup-container{
+		position   : relative;
+        background : #0B272C;
+        width      : 100%;
+        height     : 100%;
+        padding    : 5px 15px;
+        border     : 1px solid #888;
+		box-sizing  : border-box;
+}
+
+.popup .popup-header{
+        color       : rgba(255,255,255,0.7);
+        padding     : 5px 5px 0;
+        font-size   : 24px;
+		font-weight : 400;
+		box-sizing  : border-box;
+}
+
+.popup .popup-header hr{
+        border-color : rgba(255,255,255,0.35);
+        width        : 150px;
+        margin-top   : 4px;
+	margin-left  : 10px;
+		border-bottom : 0;
+}
+
+.popup .popup-content{
+        position   : relative;
+        width      : 100%;
+        height     : calc(100% - 110px);
+        overflow   : auto;
+	border     : 1px solid rgba(255,255,255,0.15);
+	background : #20363b;
+		box-sizing  : border-box;
+}
+
+.popup .popup-footer{
+        position      : absolute;
+        bottom        : 0;
+        left          : 0;
+	width         : 100%;
+        height        : 60px;
+	padding       : 0;
+	font-size     : 16px;
+	font-weight   : 400;
+	text-align    : center;
+		box-sizing  : border-box;
+}
+
+.popup .popup-footer hr{
+        width        : calc(100% - 200px);
+        border-color : rgba(255,255,255,0.15);
+}
+
+.popup .popup-footer .popup-button{
+	display       : inline-block;
+        color         : rgba(255,255,255,0.7);
+	width         : auto;
+	padding       : 5px 15px;
+        margin        : 0 10px;
+        border        : 1px solid rgba(255, 255, 255, 0.3);
+        border-radius : 10px;
+        text-align    : center;
+        cursor        : pointer;
+}
+
+.popup .popup-footer .popup-button:hover{
+	background:#444;
+	color:#fff;
+}
+
+.popup .popup-footer .popup-button i{
+        margin-right : 5px;
+}
+
+/*
+.popup-panel .content .popup-button{
+        color:#777;
+	width:auto;
+	display:inline-block;
+	padding:5px 15px;
+        margin:15px 10px;
+        text-align:center;
+        border:1px solid #666;
+        border-radius:10px;
+        cursor:pointer;
+
+        -webkit-transition:0.5s color, 0.5s background, 0.5s border-color;
+                transition:0.5s color, 0.5s background, 0.5s border-color;
+}
+
+.popup-panel .content .popup-button:hover{
+        border-color:transparent;
+        background:#4c6692;
+        color:white;
+}
+
+.popup-panel .content .popup-button i{
+        margin-right:5px;
+}
+*/
+
+@media only screen and (max-width : 991px){
+	.popup{
+		padding : 30px;
+	}
+
+	.popup .popup-header{
+		font-size   : 16px;
+		white-space : nowrap;
+		overflow    : auto;
+	}
+
+	.popup .popup-content{
+		height : calc(100% - 120px);
+	}
+
+	.popup .popup-footer{
+		margin-bottom : 30px;
+	}
+}
