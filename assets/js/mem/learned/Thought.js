@@ -5,4 +5,9 @@ MEM.learned.thought = function( p ){
 };
 
 MEM.learned.thought.prototype.init = function(){
+	// Fields / things to include in a thought:
+	// 		-The timing of a thought (past/future/exact time)
+	// 		-The timing of this thought with respect to other thoughts
+	// 		-The duration of this event
+	// 		-The location of this thought
 };

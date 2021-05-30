@@ -65,6 +65,19 @@ QUE.functions.datetime_to_string = function( dt ){
 	].join(' ');
 };
 
+QUE.functions.xml_string_to_json = function( str ){
+	var output = {};
+	var words  = str.split( /\>\s*\</ );
+
+	words.forEach(function( word ){
+		while( word[ 0 ] == '<' ) word = word.substring(1);
+		var parts = word.split('>');
+		output[ parts[ 0 ] ] = parts[ 1 ].split('<')[ 0 ];
+	});
+
+	return output;
+};
+
 QUE.functions.download_json = function( obj, filename ){
 	var content = "data:text/json;charset=utf-8," + encodeURIComponent( JSON.stringify( obj ) );
 	var ele = document.createElement( 'a' );

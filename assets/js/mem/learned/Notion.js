@@ -1,5 +1,5 @@
 MEM.learned.notion = function( p ){
-	this.name = p.name;
+	this.word = p.word;
 	this.init( p );
 };
 
@@ -8,8 +8,9 @@ MEM.learned.notion.prototype.init = function( p ){
 	this.traits  = [];  // Adjectives that describe the thing.
 
 	if( p.action ) this.add_action( p.action );
+	if( p.traits ) this.traits = p.traits;
 
-	this.definitions = MEM.learned.dictionary.get_definitions( this.name );
+	this.definitions = MEM.learned.dictionary.get_definitions( this.word );
 };
 
 MEM.learned.notion.prototype.add_action = function( action ){

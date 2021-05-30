@@ -109,21 +109,24 @@ AI.sentence.split_sentences = function( text ){
 
 		// TODO : Replace the following code with MEM.learned.notion instances.
 		// 		-Note: there could be multiple subject/action/object tuples in one sentence.
-		if( sentence.words.length >= 3 ){
+		// Example usage :
+		// { "subject" : { "word" : "I" }, "action" : { "traits" : [ "slowly" ], "word" : "ate" }, "target" : { "traits" : [ "chocolate" ], "word" : "ice cream" } }
+		try{
 			sentence.thoughts = [];
 
-			var target  = new MEM.learned.notion({ name : sentence.words[ 2 ] });
-			var action  = new MEM.learned.action({ name : sentence.words[ 1 ], target });
-			var subject = new MEM.learned.notion({ name : sentence.words[ 0 ], action });
+			if( [ '.', '?' ].includes( sentence.raw[ sentence.raw.length - 1 ] ) ) sentence.raw = sentence.raw.slice( 0, -1 );
+			var content = JSON.parse( sentence.raw );
+
+			console.log( content );
+
+			var target  = content.action.target  = new MEM.learned.notion( content.target  );
+			var action  = content.subject.action = new MEM.learned.action( content.action  );
+			var subject =                          new MEM.learned.notion( content.subject );
 
 			var thought = new MEM.learned.thought({ subject, action, target });
 
 			sentence.thoughts.push( thought );
-
-			// sentence.subject = sentence.words[ 0 ];
-			// sentence.action  = sentence.words[ 1 ];
-			// sentence.object  = sentence.words[ 2 ];
-		}
+		} catch(e){}
 	}, this);
 	
 	return sentences;

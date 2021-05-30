@@ -90,7 +90,11 @@ AI.respond.conversation = function( sentences, content ){
 		return {
 			content : content.thoughts.map(function( thoughts ){
 				return thoughts.map(function( thought ){
-					return thought.subject.name + ' {' + thought.action.name + '} ' + ( thought.target ? ' --> ' + thought.target.name : '' );
+					return '[ ' + thought.subject.word + ' ] ' +
+						' -- {' + thought.action.word + '} ' + 
+						( !thought.target ? '' :
+							' --> [ ' + thought.target.word + ' ] '
+						);
 				}).join('<br>');
 			}).join('<br>----------<br>')
 		};
