@@ -62,7 +62,7 @@ AI.sentence.split_sentences = function( text ){
 	
 	// Split the text into chunks, based on the punctuation and white-space positioning.
 	
-	var text_chunks = text.replace( /([.?!])\s*(?=[A-Z])/g, "$1|" ).split("|");
+	var text_chunks = text.replace( /([.?!])\s*(?=[A-Z])/g, "$1%|%" ).split("%|%");
 	
 	// Condense chunks of text that were separated in the previous step, but actually belong in the same sentence.
 	
@@ -111,14 +111,27 @@ AI.sentence.split_sentences = function( text ){
 		// 		-Note: there could be multiple subject/action/object tuples in one sentence.
 		// Example usage :
 		// { "subject" : { "word" : "I" }, "action" : { "traits" : [ "slowly" ], "word" : "ate" }, "target" : { "traits" : [ "chocolate" ], "word" : "ice cream" } }
+		sentence.thoughts = [];
+		if( [ '.', '?' ].includes( sentence.raw[ sentence.raw.length - 1 ] ) ) sentence.raw = sentence.raw.slice( 0, -1 );
+
+		var content;
+
+		if( sentence.raw.includes( ' | ' ) && !sentence.raw.includes( '{ ' ) ){  // Using shorthand syntax.
+			var parts = sentence.raw.split(' | ');
+
+			content = {
+				subject : { word : parts[ 0 ] },
+				action  : { word : parts[ 1 ] },
+			};
+			if( parts.length > 2 ) content.target = { word : parts[ 2 ] };
+		}
+		else{  // Using full syntax.
+			try{
+				content = JSON.parse( sentence.raw );
+			} catch(e){}
+		}
+
 		try{
-			sentence.thoughts = [];
-
-			if( [ '.', '?' ].includes( sentence.raw[ sentence.raw.length - 1 ] ) ) sentence.raw = sentence.raw.slice( 0, -1 );
-			var content = JSON.parse( sentence.raw );
-
-			console.log( content );
-
 			var target  = content.action.target  = new MEM.learned.notion( content.target  );
 			var action  = content.subject.action = new MEM.learned.action( content.action  );
 			var subject =                          new MEM.learned.notion( content.subject );
@@ -126,7 +139,8 @@ AI.sentence.split_sentences = function( text ){
 			var thought = new MEM.learned.thought({ subject, action, target });
 
 			sentence.thoughts.push( thought );
-		} catch(e){}
+		} catch(e){ console.log( 'Error : Invalid syntax. -- ', e ); }
+
 	}, this);
 	
 	return sentences;

@@ -53,6 +53,10 @@ AI.decipher.sentences = function( sentences ){
 
 	var sentence = sentences[ 0 ].raw;
 
+	sentences.forEach(function( s ){
+		s.thoughts.forEach(function( t ){ MEM.learned.thoughts.add_thought( t ); });
+	});
+
 	// TODO : Stop using patterns when parsing the sentences.
 	//		-Use the MEM.learned.thoughts and MEM.learned.notion classes to represent the content.
 	//			-In the computer's response, visualize this content.
