@@ -95,7 +95,8 @@
 	margin-right:5px;
 }
 
-.popup-content .thought{
+.popup-content .thought,
+.popup-content .notion{
 	border:1px solid rgba(255,255,255,0.25);
 	background:#0a5b69;
 	color:#fff;
@@ -104,24 +105,31 @@
 	box-sizing:border-box;
 }
 
-.popup-content .thought > table{
+.popup-content .notion{ background : #777524; }
+
+.popup-content .thought > table,
+.popup-content .notion > table{
 	width:100%;
 	color:#fff;
 	border-collapse:collapse;
 }
 
 .popup-content .thought > table th,
-.popup-content .thought > table td{
+.popup-content .thought > table td,
+.popup-content .notion > table th,
+.popup-content .notion > table td{
 	border:1px solid rgba(255,255,255,0.25);
 }
 
-.popup-content .thought > table th{
+.popup-content .thought > table th,
+.popup-content .notion > table th{
 	font-weight:400;
 	font-size:10px;
 	background:rgba(49, 16, 141, 0.3);
 }
 
-.popup-content .thought > table td{
+.popup-content .thought > table td,
+.popup-content .notion > table td{
 	padding:2px 5px;
 }
 
@@ -148,4 +156,10 @@
 	background:rgba(0,0,0,0.3);
 	font-size:12px;
 	font-weight:200;
+}
+
+.popup-content .notion .notion-word{
+	width:100px;
+	background:rgba(0,0,0,0.4);
+	text-align:right;
 }

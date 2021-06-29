@@ -1,6 +1,6 @@
 QUE = {};
 
-QUE.views = {};
+QUE.views = { popups : {} };
 
 QUE.default_view = 'conversation';
 

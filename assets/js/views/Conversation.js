@@ -1,33 +1,5 @@
 QUE.views.conversation = { messages : [] };
 
-QUE.views.conversation.thoughts_popup = new JL.popup({
-	header : "Computer's Thoughts",
-});
-
-QUE.views.conversation.show_computer_thoughts = function(){
-	var fields = [ 'subject', 'action', 'target' ];
-	this.thoughts_popup.set({
-		content : MEM.learned.thoughts.thoughts.map(function( thought ){
-			return '<div class="thought">' + 
-				'<table>' + 
-					'<tr>' +
-						'<td class="thought-id" rowspan="2">' + thought.id + '</td>' +
-						fields.map(function( x ){
-							return '<th>' + QUE.functions.to_title_case( x ) + '</th>';
-						}).join('') +
-					'</tr>' +
-					'<tr>' +
-						fields.map(function( x ){
-							if( thought[ x ] ) return '<td class="' + x + '">' + thought[ x ].word + '</td>';
-						}).join('') +
-					'</tr>' + 
-				'</table>' +
-			'</div>';
-		}).join('')
-	});
-	this.thoughts_popup.show();
-};
-
 QUE.views.conversation.send_message = function( message ){
 	if( !message.timestamp ) message.timestamp = QUE.functions.datetime_to_string( new Date() );
 	this.messages.unshift( message );
@@ -111,7 +83,8 @@ QUE.views.conversation.draw = function(){
 			'</div>' +
 			'<div class="ui-section">' +
 				'<div id="save-button" class="button" onclick="QUE.views.conversation.save_computer_memory();">Save</div>' +
-				'<div                  class="button" onclick="QUE.views.conversation.show_computer_thoughts();">Thoughts</div>' +
+				'<div                  class="button" onclick="QUE.views.popups.thoughts.load();">Thoughts</div>' +
+				'<div                  class="button" onclick="QUE.views.popups.notions.load();">Notions</div>' +
 			'</div>' +
 		'</div>'
 	);

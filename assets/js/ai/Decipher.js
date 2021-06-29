@@ -54,7 +54,11 @@ AI.decipher.sentences = function( sentences ){
 	var sentence = sentences[ 0 ].raw;
 
 	sentences.forEach(function( s ){
-		s.thoughts.forEach(function( t ){ MEM.learned.thoughts.add_thought( t ); });
+		s.thoughts.forEach(function( t ){
+			MEM.learned.thoughts.add_thought( t );
+			if( t.subject ) MEM.learned.thoughts.add_notion( t.subject );
+			if( t.target  ) MEM.learned.thoughts.add_notion( t.target  );
+		});
 	});
 
 	// TODO : Stop using patterns when parsing the sentences.
