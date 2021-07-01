@@ -119,11 +119,18 @@ AI.sentence.split_sentences = function( text ){
 		if( sentence.raw.includes( ' | ' ) && !sentence.raw.includes( '{ ' ) ){  // Using shorthand syntax.
 			var parts = sentence.raw.split(' | ');
 
-			content = {
-				subject : { word : parts[ 0 ] },
-				action  : { word : parts[ 1 ] },
-			};
-			if( parts.length > 2 ) content.target = { word : parts[ 2 ] };
+			content = {};
+
+			[ 'subject', 'action', 'target' ].forEach(function( key, i ){
+				if( parts.length > i ){
+					content[ key ] = {};
+					if( parts[ i ].includes( '(' ) ){
+						content[ key ].traits = parts[ i ].match(/\((.*)\)/)[ 1 ].split(',');
+						parts[ i ] = parts[ i ].replace(/ *\([^)]*\) */g, "");
+					}
+					content[ key ].word = parts[ i ];
+				}
+			});
 		}
 		else{  // Using full syntax.
 			try{

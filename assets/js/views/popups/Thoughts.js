@@ -9,7 +9,7 @@ QUE.views.popups.thoughts.load = function(){
 			return '<div class="thought">' + 
 				'<table>' + 
 					'<tr>' +
-						'<td class="thought-id" rowspan="2">' + thought.id + '</td>' +
+						'<td class="thought-id" rowspan="3">' + thought.id + '</td>' +
 						fields.map(function( x ){
 							return '<th>' + QUE.functions.to_title_case( x ) + '</th>';
 						}).join('') +
@@ -17,6 +17,11 @@ QUE.views.popups.thoughts.load = function(){
 					'<tr>' +
 						fields.map(function( x ){
 							if( thought[ x ] ) return '<td class="' + x + '">' + thought[ x ].word + '</td>';
+						}).join('') +
+					'</tr>' + 
+					'<tr>' +
+						fields.map(function( x ){
+							if( thought[ x ] ) return '<td class="' + x + ' trait">' + thought[ x ].traits + '</td>';
 						}).join('') +
 					'</tr>' + 
 				'</table>' +

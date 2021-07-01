@@ -158,6 +158,13 @@
 	font-weight:200;
 }
 
+.popup-content .thought .trait{
+	background:#333;
+	font-style:normal;
+	font-weight:400;
+	font-size:11px;
+}
+
 .popup-content .notion .notion-word{
 	width:100px;
 	background:rgba(0,0,0,0.4);
