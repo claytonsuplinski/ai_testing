@@ -297,6 +297,23 @@ https://grammar.yourdictionary.com/grammar/sentences/types-of-sentences.html
 	https://grammar.collinsdictionary.com/grammar-pattern/verbs
 	-See ./assets/data/facts/grammar_patterns.json
 
+-Handle different sorts of relations for the individual thoughts / notions.
+	-Time
+		-Sequence (which thoughts / events happened at which time or when events occurred relative to other events [note: could be simultaneous])
+		-Past/present/future (if an event is finished, ongoing, or in the future)
+		-Timeless (thoughts / concepts that don't have a temporal relation -- might not need this relation)
+	-Space
+		-Relative positioning (where events took place relative to other events or things; where objects are in relation to other objects)
+			-Up/down, left/right, forward/backward, north/south, in front/behind, closer/further, inside/outside, 
+	-Context
+		-Scale/magnitude of units
+			-Ex: when referring to the amount of land on a farm, acres would be the expected unit.
+			-Ex: when referring to the amount of land on a small chunk of property, square feet would be the expected unit.
+			-For simplicity when starting out, have the computer ask for the contextual parameters that are needed for the given sentence/question.
+				-Ex: if something is "warm", the computer will ask for the min/max thresholds for "warm" in degrees F.
+		-Pronouns
+			-Identify the appropriate things that go with "I", "you", etc...
+
 ------------------------------
 | Parsing Sentences Examples |
 ------------------------------

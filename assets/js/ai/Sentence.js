@@ -1,14 +1,16 @@
 AI.sentence = {};
 
-AI.sentence.get_type = function( sentence ){
+AI.sentence.classify = function( sentence ){
+	var output = {};
+
 	var sentence_end = sentence.parts[ sentence.parts.length - 1 ];
-	if( sentence_end == '?' ) return 'question';
-	if( sentence_end == '!' ) return 'exclamation';
+	if( sentence_end == '!' ) output.exclamation = true;
 	
-	if( sentence_end == '.' && sentence.raw.toLowerCase().startsWith( 'computer,' ) ) return 'command';
-	if( sentence_end == '.'                                                         ) return 'statement';
+	if     ( sentence_end == '?'                                  ) output.type =  'question';
+	else if( sentence.raw.toLowerCase().startsWith( 'computer,' ) ) output.type =   'command';
+	else                                                            output.type = 'statement';
 	
-	return '???';
+	return output;
 };
 
 AI.sentence.get_sentence_subject = function( sentence ){
@@ -101,14 +103,13 @@ AI.sentence.split_sentences = function( text ){
 		
 		// Determine the sentence type and structure.
 		
-		sentence.type      = this.get_type(      sentence );
-		sentence.structure = this.get_structure( sentence );
+		sentence.classifications = this.classify(      sentence );
+		sentence.structure       = this.get_structure( sentence );
 		
-		
-		// Classify the different parts of each sentence (like subject, action, object, etc...)
+		//--------------------------------------------------------------------------------------//
+		// Classify the different parts of each sentence (like subject, action, object, etc...) //
+		//--------------------------------------------------------------------------------------//
 
-		// TODO : Replace the following code with MEM.learned.notion instances.
-		// 		-Note: there could be multiple subject/action/object tuples in one sentence.
 		// Example usage :
 		// { "subject" : { "word" : "I" }, "action" : { "traits" : [ "slowly" ], "word" : "ate" }, "target" : { "traits" : [ "chocolate" ], "word" : "ice cream" } }
 		sentence.thoughts = [];

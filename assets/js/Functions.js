@@ -22,6 +22,11 @@ QUE.functions.to_title_case = function(str){
 	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
+QUE.functions.random_element = function( arr ){
+	try{ return arr[ Math.floor( Math.random() * arr.length ) ]; } catch(e){}
+	return false;
+};
+
 QUE.functions.get_sorted_index = function( arr, val ){
 	var low  = 0;
 	var high = arr.length;
