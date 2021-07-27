@@ -22,17 +22,40 @@ AI.respond.conversation = function( sentences, content ){
 	// 			-In this situation, the computer can come up with either a question to ask the user (about what was just said) or provide a somewhat generic response.
 	// 				-For example, if I said "I ate pie.", the computer could respond by saying "What kind of pie was it?".
 
-	if     ( sentences.find( s => s.classifications.type == 'command' ) ){ // If there was a command issued.
+	if     ( sentences.find( s => s.classifications.type == 'command' ) ){ // If a command was said.
 		return {
 			content : 'Trying to do command.'
 		};
 	}
-	else if( sentences.find( s => s.classifications.type == 'question' ) ){ // If there was a question issued.
+	else if( sentences.find( s => s.classifications.type == 'question' ) ){ // If a question was asked.
+		var question = sentences.find( s => s.classifications.type == 'question' );
+		var thought  = question.thoughts[ 0 ];
+
+		if( thought.action.definitions.length ){
+			var action_def = thought.action.definitions[ 0 ];
+			if( action_def.x ){
+				if( action_def.x.f ){
+					if( thought.target ){
+						try{
+							return {
+								content : 'The ' + thought.action.word + ' of ' + thought.target.word + 
+										' is <br>' + eval( action_def.x.f + '( ' + thought.target.word + ' )' ) + '.'
+							};
+						} catch( e ){
+							return {
+								content : "I'm sorry, I don't know how to answer that question."
+							};
+						}
+					}
+				}
+			}
+		}
+
 		return {
-			content : 'Trying to answer question.'
+			content : "I don't know the answer to that question."
 		};
 	}
-	else{
+	else{                                                                   // If a statement was said.
 		var last_sentence = sentences[ sentences.length - 1 ];
 		var last_thought  = last_sentence.thoughts[ last_sentence.thoughts.length - 1 ];
 
