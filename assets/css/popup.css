@@ -1,0 +1,68 @@
+#add-word{
+	background:rgba(0,0,0,0.5);
+	border:1px solid rgba(255,255,255,0.25);
+	margin:10px auto;
+	width:600px;
+	max-width:calc( 100% - 10px );
+}
+
+#add-word .trait-label{
+	color:#fff;
+	font-size:14px;
+	width:125px;
+	padding:1px 5px;
+	background:#7f2929;
+}
+
+#add-word .trait-content input,
+#add-word .trait-content select{
+	background:#b7cfd4;
+	padding:1px 5px;
+	border:0;
+	width:100%;
+	font-size:14px;
+}
+
+#add-word .trait-words{
+	background:#3e717b;
+	font-size:12px;
+	padding:2px;
+}
+
+#add-word .trait-words .add-word{
+	background:#42de3e;
+	display:inline-block;
+	padding:0 5px;
+	margin-right:5px;
+	cursor:pointer;
+}
+
+#add-word .trait-words .add-word:hover{
+	background:#83ff80;
+}
+
+#add-word .trait-words .word{
+	display:inline-block;
+	background:#ddd;
+	padding:0 10px;
+	margin:0 5px;
+	border-radius:100px;
+}
+
+#add-word .trait-words .word .remove-word{
+	display:inline-block;
+	background:#444;
+	color:#fff;
+	border-radius:100px;
+	padding:0 5px;
+	margin-left:5px;
+	cursor:pointer;
+}
+
+#add-word .trait-words .word .remove-word:hover{
+	background:#933;
+}
+
+.ui-autocomplete.ui-front{
+	z-index:999 !important;
+}

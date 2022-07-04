@@ -73,6 +73,12 @@
 	width:100%;
 }
 
+#conversation .message .prompt textarea{
+	width:100%;
+	height:85px;
+	resize:vertical;
+}
+
 #conversation .message .prompt       .add-definition{ background:#6e332a; }
 #conversation .message .prompt .ignore-definition{ background:#3a5a84; }
 #conversation .message .prompt .update-definition{ background:#7d601c; }

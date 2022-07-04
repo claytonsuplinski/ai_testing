@@ -120,6 +120,22 @@ MEM.learned.dictionary.get_definitions = function( word, def_criteria, params ){
 	return [];
 };
 
+MEM.learned.dictionary.get_children = function( word ){
+	return this.entries.filter(function( entry ){
+		try{
+			return entry.d.find(function( d ){
+				if( d.x ){
+					if( d.x.t == word ) return true;
+				}
+				return d.c.find(function( c ){
+					return c.w == word;
+				});
+			});
+		} catch(e){ return false; }
+	});
+	
+};
+
 MEM.learned.dictionary.query = function( p ){
 	var result = false;
 	

@@ -97,6 +97,10 @@ select{
 	box-sizing:border-box;
 }
 
+.ui-section hr{
+	border-color:rgba(255,255,255,0.2);
+}
+
 .ui-content{
 	width :700px;
 	height:calc(100vh - 145px);
@@ -107,4 +111,26 @@ select{
 	border:1px solid rgba(255,255,255,0.25);
 	color:#fff;
 	overflow:auto;
+}
+
+.dropdown-input{
+	background:rgba(0,0,0,0.5);
+	border:1px solid rgba(255,255,255,0.25);
+	padding:2px;
+}
+
+.dropdown-input .label{
+	display:inline-block;
+	padding:5px 10px;
+	margin-right:10px;
+	border-right:1px solid rgba(255,255,255,0.2);
+	color:rgba(255,255,255,0.8);
+	font-size:14px;
+	font-style:italic;
+}
+
+.dropdown-input select{
+	width:150px;
+	padding:2px;
+	margin :2px;
 }

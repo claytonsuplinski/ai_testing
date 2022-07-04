@@ -3,22 +3,14 @@ QUE.hashlinks = new Hashlinks({
 });
 
 QUE.hashlinks.on_start = function(){
-	var self = this;
+	var curr_view = QUE.views[ this.params.view.value || QUE.config.default_view ];
 
-	var callback = function(){
-		QUE.views[ self.params.view.value || QUE.default_view ].draw();
-	};
-	
-	var loading_sequence = [
-		MEM.learned.dictionary,
-	];
-	
-	var load = function( idx ){
-		var idx = idx || 0;
-		loading_sequence[ idx ].load( idx < loading_sequence.length - 1 ? load( idx + 1 ) : callback );
-	};
-	
-	load();
+	AI.dictionary.load({
+		callback : function(){
+			if     ( curr_view.load ) curr_view.load();
+			else if( curr_view.draw ) curr_view.draw();
+		}
+	});
 };
 
 window.onhashchange = function(){ QUE.hashlinks.start(); };
