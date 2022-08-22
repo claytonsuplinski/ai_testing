@@ -7,8 +7,12 @@ QUE.hashlinks.on_start = function(){
 
 	AI.dictionary.load({
 		callback : function(){
-			if     ( curr_view.load ) curr_view.load();
-			else if( curr_view.draw ) curr_view.draw();
+			AI.knowledge.load({
+				callback : function(){
+					if     ( curr_view.load ) curr_view.load();
+					else if( curr_view.draw ) curr_view.draw();
+				}
+			});
 		}
 	});
 };

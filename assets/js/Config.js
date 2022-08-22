@@ -23,16 +23,40 @@ QUE.config.definition_components = [
 	{ name : 'Word'           , key : 'w'  },
 	{ name : 'Description'    , key : 'd'  },
 	{ name : 'Part of Speech' , key : 'p'  , options : [{ name : '' }].concat( QUE.config.parts_of_speech ) },
-	{ name : 'Comparison'     , key : 'c'  },
+	{ name : 'Synonym'        , key : 'sy' , type : 'word'  },    // Ex: for the word "an", the word "a" would be a synonym -- no other fields would need to be filled out (besides possibly description)
+	{ name : 'Antonym'        , key : 'an' , type : 'word'  },    // Ex: for the word "likely", the word "unlikely" would be an antonym -- no other fields would need to be filled out (besides possibly description)
 	{ name : 'Value'          , key : 'v'  },
-	{ name : 'Variable'       , key : 'vr' },
 	{ name : 'Executable Code', key : 'x'  },
 	{ name : 'Traits'         , key : 'tr' , type : 'words' },    // Ex: for apple, a trait might be { word : "red" }
 	{ name : 'Types'          , key : 'ty' , type : 'words' },    // Ex: for apple, a type might be { word : "fruit" }
-	{ name : 'Synonym'        , key : 'sy' , type : 'word'  },    // Ex: for the word "an", the word "a" would be a synonym -- no other fields would need to be filled out (besides possibly description)
 ];
 
-AI = {};
+QUE.config.sentence_types = [
+	{
+		name  : 'Statement',
+		parts : [
+			{ name : 'Subject', pos : [ 'n' ] },
+			{ name : 'Action' , pos : [ 'v' ] },
+			{ name : 'Target' , pos : [ 'n' ] },
+		]
+	},
+	{
+		name  : 'Question',
+		parts : [
+			{ name : 'Subject' },
+			{ name : 'Action'  },
+			{ name : 'Target'  },
+		]
+	},
+	{
+		name  : 'Command',
+		parts : [
+			{ name : 'Subject' },
+			{ name : 'Action'  },
+			{ name : 'Target'  },
+		]
+	},
+];
 
 MEM = {
 	facts   : {},

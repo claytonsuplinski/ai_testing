@@ -18,6 +18,25 @@ QUE.functions.has_letter = function( str ){
 	return ( /[A-Za-z]/i ).test( str );
 };
 
+QUE.functions.stringify_word = function( word ){
+	return word.w + ( word.d ? ' (' + word.d + ')' : '' );
+};
+
+QUE.functions.unstringify_word = function( str ){
+	if( str.includes( '(' ) ){
+		var input_val = input_val.split( '(' );
+		return {
+			w : input_val[ 0 ],
+			d : input_val[ 1 ].split( ')' )[ 0 ],
+		};
+	}
+	else{
+		return {
+			w : str,
+		};
+	}
+};
+
 QUE.functions.to_title_case = function(str){
 	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
