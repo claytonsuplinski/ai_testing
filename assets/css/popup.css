@@ -1,4 +1,4 @@
-#add-word{
+.popup .trait-table{
 	background:rgba(0,0,0,0.5);
 	border:1px solid rgba(255,255,255,0.25);
 	margin:10px auto;
@@ -6,7 +6,7 @@
 	max-width:calc( 100% - 10px );
 }
 
-#add-word .trait-label{
+.popup .trait-label{
 	color:#fff;
 	font-size:14px;
 	width:125px;
@@ -14,8 +14,8 @@
 	background:#7f2929;
 }
 
-#add-word .trait-content input,
-#add-word .trait-content select{
+.popup .trait-content input,
+.popup .trait-content select{
 	background:#b7cfd4;
 	padding:1px 5px;
 	border:0;

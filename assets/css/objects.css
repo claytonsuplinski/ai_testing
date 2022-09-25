@@ -1,0 +1,19 @@
+.add-object input{
+	width:calc( 100% - 100px );
+}
+
+#objects .entry{
+	display:inline-block;
+	width:200px;
+	background:rgba(0,0,0,0.5);
+	color:#e7d0b6;
+	border:1px solid rgba(255,255,255,0.25);
+	margin:5px;
+	font-size:12px;
+	padding:2px 5px;
+	cursor:pointer;
+}
+
+#objects .entry:hover{
+	background:rgba(100, 100, 100, 0.5);
+}

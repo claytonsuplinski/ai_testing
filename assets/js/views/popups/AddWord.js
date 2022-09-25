@@ -97,7 +97,7 @@ QUE.views.popups.add_word.load = function( p ){
 	this.on_submit = p.on_submit;
 	this.entry = p.entry;
 	this.set({
-		content : '<table id="add-word">' + 
+		content : '<table id="add-word" class="trait-table">' + 
 			QUE.config.definition_components.map(function( t, i ){
 				var id = 'trait-content-' + i;
 				var value;
