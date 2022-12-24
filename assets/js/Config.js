@@ -35,9 +35,9 @@ QUE.config.sentence_types = [
 	{
 		name  : 'Statement',
 		parts : [
-			{ name : 'Subject', pos : [ 'n' ] },
+			{ name : 'Subject', pos : [ 'n' ], object : 1 },
 			{ name : 'Action' , pos : [ 'v' ] },
-			{ name : 'Target' , pos : [ 'n' ] },
+			{ name : 'Target' , pos : [ 'n' ], object : 1 },
 		]
 	},
 	{

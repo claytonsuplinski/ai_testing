@@ -83,13 +83,19 @@ QUE.views.guide.draw = function(){
 	);
 
 	this.sentence_type.parts.forEach(function( part ){
-		$( 'input#word-' + part.name ).autocomplete({
-			source : AI.dictionary.entries.filter(function( entry ){
-					return part.pos.includes( entry.p );
-				}).map(function( entry ){
-					return QUE.functions.stringify_word( entry );
-				})
-		});
+		var source = AI.dictionary.entries.filter(function( entry ){
+				return part.pos.includes( entry.p );
+			}).map(function( entry ){
+				return '* ' + QUE.functions.stringify_word( entry );
+			});
+
+		if( part.object ){
+			source = source.concat( AI.knowledge.get_all_objects().map(function( obj ){
+					return QUE.functions.stringify_object( obj );
+				}) );
+		}
+
+		$( 'input#word-' + part.name ).autocomplete({ source });
 	});
 	
 	$( "#user-input-field input" ).focus();

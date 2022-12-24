@@ -22,6 +22,10 @@ QUE.functions.stringify_word = function( word ){
 	return word.w + ( word.d ? ' (' + word.d + ')' : '' );
 };
 
+QUE.functions.stringify_object = function( obj ){
+	return '(' + obj.id + ') ' + obj.name;
+};
+
 QUE.functions.unstringify_word = function( str ){
 	if( str.includes( '(' ) ){
 		var input_val = input_val.split( '(' );
