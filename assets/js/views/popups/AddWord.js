@@ -52,7 +52,7 @@ QUE.views.popups.add_word.submit = function(){
 
 QUE.views.popups.add_word.html_words_trait = function( p ){
 	var self = this;
-	var entry = this.entry;
+	var entry = this.entry || {};
 	var value = entry[ p.key ];
 	var update_params = 'key : \'' + p.key + '\', id : \'' + p.id + '\', id_words : \'' + p.id_words + '\'';
 	return '<div class="add-word" onclick="' + self.this_string + '.update_words_trait({ action : \'add\', ' + update_params + ' });"' + 

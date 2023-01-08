@@ -9,6 +9,7 @@
 #save-button{
 	background:#267137;
 	border-color:#55b66a;
+	width:100px;
 }
 
 #save-button:hover{

@@ -3,7 +3,7 @@ QUE = {};
 QUE.views = { popups : {} };
 
 QUE.config = {
-	default_view   : 'guide',
+	default_view   : 'events',
 	excluded_views : 'popups',
 };
 
@@ -34,6 +34,7 @@ QUE.config.definition_components = [
 QUE.config.sentence_types = [
 	{
 		name  : 'Statement',
+		key   : 's',
 		parts : [
 			{ name : 'Subject', pos : [ 'n' ], object : 1 },
 			{ name : 'Action' , pos : [ 'v' ] },
@@ -42,6 +43,7 @@ QUE.config.sentence_types = [
 	},
 	{
 		name  : 'Question',
+		key   : '?',
 		parts : [
 			{ name : 'Subject' },
 			{ name : 'Action'  },
@@ -50,6 +52,7 @@ QUE.config.sentence_types = [
 	},
 	{
 		name  : 'Command',
+		key   : 'c',
 		parts : [
 			{ name : 'Subject' },
 			{ name : 'Action'  },

@@ -5,13 +5,15 @@ AI.dictionary.load = function( p ){
 
 	var self = this;
 
-	this.entries = [];
+	this.entries   = [];
+	this.entry_idx = 0;
 	
 	$.ajax({
 		url      : './assets/data/learned/dictionary.json',
 		dataType : 'json',
 		success  : function( data ){
-			self.entries = data;
+			self.entries   = data.entries;
+			self.entry_idx = data.idx;
 		
 			if( p.callback ) p.callback();
 		},
@@ -35,6 +37,10 @@ AI.dictionary.insert = function( word ){
 	var match = this.find({ word });
 	if( !match ){
 		var idx = 0;
+		
+		word[ '_' ] = this.entry_idx;
+		this.entry_idx++;
+		
 		for( var x of this.entries ){
 			if(
 				  x.w >  word.w ||
@@ -74,5 +80,8 @@ AI.dictionary.update = function( prev_word, next_word ){
 };
 
 AI.dictionary.save = function( word ){
-	QUE.functions.download_json( this.entries, 'dictionary.json' );
+	QUE.functions.download_json(
+		{ entries : this.entries, idx : this.entry_idx },
+		'dictionary.json'
+	);
 };

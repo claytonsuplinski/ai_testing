@@ -37,7 +37,7 @@ QUE.views.objects.draw = function(){
 				}).join('') +
 			'</div>' +
 			'<div class="ui-section">' +
-				'<div id="save-button" class="button" onclick="AI.knowledge.save_objects();">Save</div>' +
+				'<div id="save-button" class="button" onclick="AI.knowledge.save_objects();">Save Objects</div>' +
 			'</div>' +
 		'</div>'
 	);

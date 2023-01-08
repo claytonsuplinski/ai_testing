@@ -28,7 +28,7 @@ QUE.functions.stringify_object = function( obj ){
 
 QUE.functions.unstringify_word = function( str ){
 	if( str.includes( '(' ) ){
-		var input_val = input_val.split( '(' );
+		var input_val = str.split( '(' );
 		return {
 			w : input_val[ 0 ],
 			d : input_val[ 1 ].split( ')' )[ 0 ],

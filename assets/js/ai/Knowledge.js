@@ -78,16 +78,47 @@ AI.knowledge.get_all_objects = function(){
 AI.knowledge.remove_object = function( id ){
 };
 
-AI.knowledge.add_event = function( event ){
-	// TODO : Decide on the traits that will go with each event.
-	// 		-Ex: id of subject, id of target, timestamp, location, temperature, etc...
-	// 		-For the most part, it'll probably just be Object.assign() of words from the sentence on the trait object.
-	console.log( event );
-	try{ this.objects.push( event[ 'Subject' ] ); } catch(e){}
-	try{ this.objects.push( event[ 'Target'  ] ); } catch(e){}
-	console.log( this.objects );
+AI.knowledge.add_event = function( p ){
+	var eve = {
+		'.' : p.sentence_type.key,
+		s   : [],
+		t   : {},
+	};
+	
+	// Derive objects / words for each part of the sentence.
+	p.sentence_type.parts.forEach(function( part, part_idx ){
+		var input_val = p.sentence_parts[ part_idx ];
+		var part_key  = part.key || part.name[ 0 ].toLowerCase();
+		
+		if( part.object ){
+			try{
+				var obj_id = Number( input_val.split( '(' )[ 1 ].split( ')' )[ 0 ] );
+				var obj    = AI.knowledge.get_object( obj_id );
+				
+				if( obj ){
+					eve.s.push({ t : part_key, o : obj.id });
+					return;
+				}
+			} catch(e){}
+		}
+		
+		eve.s.push({ t : part_key, w : AI.dictionary.find({ word : QUE.functions.unstringify_word( input_val.split('* ')[ 1 ] ) })[ '_' ] });
+	});
+	
+	// Derive values for the temporal scope of the sentence.
+	switch( p.temporal_scope.type ){
+		case 'Current Time':
+			eve.t.v = QUE.functions.datetime_to_string( new Date() );
+			break;
+	}
+	
+	this.data.events.push( eve );
 };
 
 AI.knowledge.save_objects = function(){
 	QUE.functions.download_json( this.data.objects, 'objects.json' );
+};
+
+AI.knowledge.save_events = function(){
+	QUE.functions.download_json( this.data.events, 'events.json' );
 };
